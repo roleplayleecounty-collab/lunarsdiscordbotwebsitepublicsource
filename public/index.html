@@ -1,170 +1,242 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Lyra — Discord Bot</title>
+<title>Lyra | Discord Bot</title>
 
 <meta name="description" content="Lyra is an advanced Discord bot with tickets, economy, moderation, logging and more.">
 <meta name="theme-color" content="#8b5cf6">
 
+
 <style>
 
 *{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Inter,Arial,sans-serif;
 }
 
 html{
-    scroll-behavior:smooth;
+scroll-behavior:smooth;
 }
 
+
 body{
-    font-family:Inter,Arial,sans-serif;
-    background:
-    radial-gradient(circle at top,#8b5cf633,transparent 35%),
-    #050505;
-    color:white;
+
+background:
+radial-gradient(circle at top,#8b5cf644,transparent 40%),
+#050505;
+
+color:white;
+
 }
 
 
 a{
-    text-decoration:none;
-    color:white;
+text-decoration:none;
+color:white;
 }
 
 
-.nav{
-    height:75px;
-    position:sticky;
-    top:0;
-    z-index:100;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:0 6%;
-    background:#080808cc;
-    backdrop-filter:blur(15px);
-    border-bottom:1px solid #ffffff12;
-}
+nav{
 
+height:75px;
 
-.brand{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    font-size:22px;
-    font-weight:900;
+display:flex;
+align-items:center;
+justify-content:space-between;
+
+padding:0 6%;
+
+position:sticky;
+top:0;
+
+background:#080808dd;
+
+backdrop-filter:blur(15px);
+
+border-bottom:1px solid #ffffff15;
+
+z-index:100;
+
 }
 
 
 .logo{
-    width:42px;
-    height:42px;
-    border-radius:14px;
-    display:grid;
-    place-items:center;
-    background:linear-gradient(135deg,#a855f7,#6d28d9);
-    box-shadow:0 0 30px #8b5cf688;
+
+display:flex;
+align-items:center;
+gap:12px;
+
+font-size:24px;
+font-weight:900;
+
 }
 
 
-.links{
-    display:flex;
-    gap:25px;
+.logo-box{
+
+width:45px;
+height:45px;
+
+display:grid;
+place-items:center;
+
+border-radius:15px;
+
+background:linear-gradient(
+135deg,
+#c084fc,
+#7c3aed
+);
+
+box-shadow:0 0 30px #8b5cf6;
+
 }
 
 
-.links a{
-    color:#aaa;
-    font-size:14px;
+.nav-buttons{
+
+display:flex;
+gap:20px;
+align-items:center;
+
 }
 
 
-.links a:hover{
-    color:white;
+button,
+.btn{
+
+border:0;
+
+padding:13px 22px;
+
+border-radius:14px;
+
+font-weight:900;
+
+cursor:pointer;
+
 }
 
 
 .login{
-    background:#5865f2;
-    border:0;
-    padding:12px 18px;
-    border-radius:12px;
-    font-weight:800;
-    cursor:pointer;
-    color:white;
-}
 
+background:#5865f2;
+
+color:white;
+
+}
 
 
 .hero{
-    min-height:650px;
-    display:grid;
-    place-items:center;
-    text-align:center;
-    width:90%;
-    max-width:1100px;
-    margin:auto;
+
+min-height:650px;
+
+width:90%;
+max-width:1100px;
+
+margin:auto;
+
+display:grid;
+
+place-items:center;
+
+text-align:center;
+
 }
 
 
-.badge{
-    display:inline-block;
-    padding:8px 15px;
-    border-radius:999px;
-    background:#22c55e22;
-    color:#86efac;
-    border:1px solid #22c55e44;
-    margin-bottom:25px;
+.online{
+
+background:#22c55e22;
+
+border:1px solid #22c55e55;
+
+color:#86efac;
+
+padding:8px 16px;
+
+border-radius:50px;
+
+display:inline-block;
+
+margin-bottom:25px;
+
 }
+
 
 
 h1{
-    font-size:90px;
-    line-height:.95;
+
+font-size:90px;
+
+line-height:.95;
+
 }
 
 
 .gradient{
-    background:linear-gradient(90deg,#fff,#a855f7,#6d28d9);
-    background-clip:text;
-    color:transparent;
+
+background:linear-gradient(
+90deg,
+white,
+#c084fc,
+#7c3aed
+);
+
+background-clip:text;
+
+color:transparent;
+
 }
 
 
 .hero p{
-    margin-top:25px;
-    color:#aaa;
-    font-size:20px;
+
+margin-top:25px;
+
+font-size:20px;
+
+color:#999;
+
 }
 
 
-.buttons{
-    margin-top:35px;
-    display:flex;
-    justify-content:center;
-    gap:15px;
-}
+.actions{
 
+margin-top:35px;
 
-.btn{
-    padding:15px 25px;
-    border-radius:14px;
-    font-weight:900;
+display:flex;
+
+justify-content:center;
+
+gap:15px;
+
 }
 
 
 .primary{
-    background:linear-gradient(135deg,#a855f7,#6d28d9);
+
+background:linear-gradient(
+135deg,
+#c084fc,
+#7c3aed
+);
+
 }
 
 
 .secondary{
-    background:#151515;
-    border:1px solid #ffffff15;
+
+background:#151515;
+
+border:1px solid #ffffff15;
+
 }
 
 
@@ -173,59 +245,66 @@ h1{
 
 width:90%;
 max-width:1000px;
+
 margin:-40px auto 100px;
 
 display:grid;
+
 grid-template-columns:repeat(3,1fr);
-gap:15px;
+
+gap:20px;
 
 }
 
 
-.card{
 
-background:#101010;
-border:1px solid #ffffff12;
-padding:30px;
+.stat{
+
+background:#111;
+
+border:1px solid #ffffff15;
+
 border-radius:20px;
+
+padding:30px;
+
 text-align:center;
 
 }
 
 
-.card h2{
+
+.stat h2{
+
 font-size:35px;
+
 }
 
 
-.card p{
+.stat p{
+
 color:#888;
+
 }
-
-
 
 
 
 section{
 
 width:90%;
+
 max-width:1100px;
+
 margin:100px auto;
 
 }
 
 
 
-.title{
-
-margin-bottom:35px;
-
-}
-
-
 .title span{
 
-color:#a855f7;
+color:#c084fc;
+
 font-weight:900;
 
 }
@@ -236,6 +315,8 @@ font-weight:900;
 
 font-size:45px;
 
+margin-top:10px;
+
 }
 
 
@@ -243,6 +324,7 @@ font-size:45px;
 .title p{
 
 color:#999;
+
 margin-top:10px;
 
 }
@@ -251,8 +333,12 @@ margin-top:10px;
 
 .features{
 
+margin-top:35px;
+
 display:grid;
+
 grid-template-columns:repeat(3,1fr);
+
 gap:20px;
 
 }
@@ -262,18 +348,23 @@ gap:20px;
 .feature{
 
 background:#111;
+
 padding:30px;
+
 border-radius:20px;
-border:1px solid #ffffff12;
+
+border:1px solid #ffffff15;
+
+transition:.2s;
 
 }
-
 
 
 .feature:hover{
 
 transform:translateY(-5px);
-border-color:#a855f7;
+
+border-color:#c084fc;
 
 }
 
@@ -282,6 +373,7 @@ border-color:#a855f7;
 .icon{
 
 font-size:30px;
+
 margin-bottom:15px;
 
 }
@@ -291,18 +383,21 @@ margin-bottom:15px;
 .feature p{
 
 color:#999;
+
 margin-top:10px;
 
 }
 
 
 
-
 .dashboard{
 
 background:#111;
-border:1px solid #ffffff12;
+
+border:1px solid #ffffff15;
+
 border-radius:25px;
+
 padding:30px;
 
 }
@@ -311,13 +406,19 @@ padding:30px;
 
 .server{
 
-background:#181818;
-padding:15px;
-border-radius:12px;
-margin-top:10px;
 display:flex;
+
 align-items:center;
+
 gap:15px;
+
+background:#181818;
+
+padding:15px;
+
+margin-top:10px;
+
+border-radius:15px;
 
 }
 
@@ -326,11 +427,16 @@ gap:15px;
 .avatar{
 
 width:45px;
+
 height:45px;
+
 border-radius:50%;
-background:#a855f7;
+
 display:grid;
+
 place-items:center;
+
+background:#8b5cf6;
 
 }
 
@@ -338,9 +444,12 @@ place-items:center;
 
 footer{
 
-border-top:1px solid #ffffff12;
-padding:30px;
 text-align:center;
+
+padding:30px;
+
+border-top:1px solid #ffffff15;
+
 color:#777;
 
 }
@@ -360,13 +469,11 @@ grid-template-columns:1fr;
 
 }
 
-.links{
+.nav-buttons a{
 display:none;
 }
 
 }
-
-
 
 </style>
 
@@ -376,64 +483,92 @@ display:none;
 <body>
 
 
-<header class="nav">
+<nav>
 
-<div class="brand">
-<div class="logo">🌙</div>
+
+<div class="logo">
+
+<div class="logo-box">
+🌙
+</div>
+
 Lyra
+
 </div>
 
 
-<div class="links">
+<div class="nav-buttons">
 
-<a href="#features">Features</a>
-<a href="#dashboard">Dashboard</a>
-<a href="#servers">Servers</a>
+<a href="#features">
+Features
+</a>
+
+<a href="#servers">
+Servers
+</a>
+
 
 <button class="login" onclick="login()">
 Discord Login
 </button>
 
+
 </div>
 
 
-</header>
+</nav>
 
 
 
-<section class="hero">
+
+
+<div class="hero">
 
 
 <div>
 
-<div class="badge">
+
+<div class="online">
+
 🟢 Lyra is Online
+
 </div>
 
 
 <h1>
+
 Your Discord.<br>
+
 <span class="gradient">
 Your Community.
 </span>
+
 </h1>
 
 
 <p>
-Lyra is a powerful Discord bot built with advanced tickets,
-economy, moderation, logging, badges and server protection.
+
+Lyra is a powerful Discord bot with
+tickets, economy, moderation, badges,
+logging and server protection.
+
 </p>
 
 
-<div class="buttons">
+<div class="actions">
 
-<a class="btn primary" href="/invite">
+
+<a class="btn primary" href="https://lyrasupport.onrender.com/invite">
+
 Invite Lyra
+
 </a>
 
 
 <button class="btn secondary" onclick="login()">
-Login With Discord
+
+Login
+
 </button>
 
 
@@ -443,7 +578,8 @@ Login With Discord
 </div>
 
 
-</section>
+</div>
+
 
 
 
@@ -451,27 +587,50 @@ Login With Discord
 <div class="stats">
 
 
-<div class="card">
-<h2 id="guilds">0</h2>
-<p>Servers</p>
+<div class="stat">
+
+<h2 id="guilds">
+0
+</h2>
+
+<p>
+Servers
+</p>
+
 </div>
 
 
-<div class="card">
-<h2 id="members">0</h2>
-<p>Users</p>
+
+<div class="stat">
+
+<h2 id="members">
+0
+</h2>
+
+<p>
+Members
+</p>
+
 </div>
 
 
-<div class="card">
+
+<div class="stat">
+
 <h2 id="status">
 Online
 </h2>
-<p>Status</p>
+
+<p>
+Status
+</p>
+
 </div>
 
 
 </div>
+
+
 
 
 
@@ -485,118 +644,141 @@ Online
 <span>FEATURES</span>
 
 <h2>
-Everything your server needs
+Everything you need
 </h2>
 
+
 <p>
-Built for communities that want a powerful all-in-one Discord bot.
+One bot for your entire Discord server.
 </p>
 
 </div>
-
 
 
 
 <div class="features">
 
 
-<div class="feature">
-<div class="icon">🎫</div>
-<h3>Advanced Tickets</h3>
-<p>
-Custom ticket panels, claiming, closing, transcripts and staff tools.
-</p>
-</div>
-
-
 
 <div class="feature">
-<div class="icon">💰</div>
-<h3>Economy</h3>
-<p>
-Coins, daily rewards, work commands, payments and leaderboards.
-</p>
+
+<div class="icon">
+🎫
 </div>
-
-
-
-<div class="feature">
-<div class="icon">🛡️</div>
-<h3>Moderation</h3>
-<p>
-Powerful moderation commands to keep your server safe.
-</p>
-</div>
-
-
-
-<div class="feature">
-<div class="icon">📜</div>
-<h3>Logging</h3>
-<p>
-Track important server events automatically.
-</p>
-</div>
-
-
-
-<div class="feature">
-<div class="icon">🏆</div>
-<h3>Badges</h3>
-<p>
-Custom Lyra badges like Developer, Staff and Founder.
-</p>
-</div>
-
-
-
-<div class="feature">
-<div class="icon">🤖</div>
-<h3>Protection</h3>
-<p>
-Smart anti-spam and server protection systems.
-</p>
-</div>
-
-
-
-</div>
-
-
-</section>
-
-
-
-
-
-<section id="dashboard">
-
-<div class="title">
-
-<span>DASHBOARD</span>
-
-<h2>
-Your Lyra Control Center
-</h2>
-
-</div>
-
-
-<div class="dashboard">
 
 <h3>
-🌙 Lyra Dashboard
+Tickets
 </h3>
 
-<p style="color:#888;margin-top:10px;">
-Login with Discord to manage your servers.
+<p>
+Advanced ticket panels, claiming,
+closing and transcripts.
 </p>
+
+</div>
+
+
+
+
+<div class="feature">
+
+<div class="icon">
+💰
+</div>
+
+<h3>
+Economy
+</h3>
+
+<p>
+Coins, daily rewards, work and leaderboards.
+</p>
+
+</div>
+
+
+
+
+<div class="feature">
+
+<div class="icon">
+🛡️
+</div>
+
+<h3>
+Moderation
+</h3>
+
+<p>
+Keep your community safe.
+</p>
+
+</div>
+
+
+
+
+<div class="feature">
+
+<div class="icon">
+📜
+</div>
+
+<h3>
+Logging
+</h3>
+
+<p>
+Track everything happening.
+</p>
+
+</div>
+
+
+
+
+<div class="feature">
+
+<div class="icon">
+🏆
+</div>
+
+<h3>
+Badges
+</h3>
+
+<p>
+Developer, staff and special badges.
+</p>
+
+</div>
+
+
+
+
+<div class="feature">
+
+<div class="icon">
+🤖
+</div>
+
+<h3>
+Protection
+</h3>
+
+<p>
+Anti spam and security systems.
+</p>
+
+</div>
 
 
 </div>
 
 
 </section>
+
+
 
 
 
@@ -606,24 +788,24 @@ Login with Discord to manage your servers.
 
 <div class="title">
 
-<span>SERVERS</span>
+<span>DASHBOARD</span>
 
 <h2>
-Your Discord Servers
+Your Servers
 </h2>
 
 </div>
 
 
+
 <div class="dashboard" id="serverList">
 
-Login to view your servers.....
+Login with Discord to see your servers.
 
 </div>
 
 
 </section>
-
 
 
 
@@ -638,73 +820,101 @@ Login to view your servers.....
 
 
 
+
 <script>
+
+
+const BACKEND =
+"https://lyrasupport.onrender.com";
+
 
 
 function login(){
 
-window.location.href="/auth/discord";
+window.location.href =
+BACKEND + "/auth/discord";
 
 }
 
 
 
-async function stats(){
+async function loadStats(){
 
 try{
 
-let r=await fetch("/api/bot/stats");
-
-let d=await r.json();
-
-
-guilds.innerText=d.guilds;
-members.innerText=d.members;
-status.innerText=d.online?"Online":"Offline";
+const res =
+await fetch(
+BACKEND+"/api/bot/stats"
+);
 
 
-}catch{}
+const data =
+await res.json();
+
+
+guilds.innerText =
+data.guilds || 0;
+
+
+members.innerText =
+data.members || 0;
+
+
+status.innerText =
+data.online ? "Online":"Offline";
+
+
+}catch(e){
+
+console.log(e);
+
+}
 
 }
 
 
 
-
-async function servers(){
+async function loadServers(){
 
 try{
 
 
-let r=await fetch("/api/guilds");
+const res =
+await fetch(
+BACKEND+"/api/guilds"
+);
 
 
-if(!r.ok)return;
+if(!res.ok)
+return;
 
 
-let d=await r.json();
+const data =
+await res.json();
+
 
 
 serverList.innerHTML="";
 
 
-d.guilds.forEach(g=>{
+data.guilds.forEach(server=>{
 
 
-serverList.innerHTML+=`
+serverList.innerHTML += `
 
 <div class="server">
 
 <div class="avatar">
-${g.name[0]}
+${server.name[0]}
 </div>
 
 
 <div>
 
-<b>${g.name}</b>
+<b>${server.name}</b>
 
-<p style="color:#777">
-${g.owner?"Owner":"Member"}
+<p style="color:#888">
+${server.owner?"Owner":"Member"}
 </p>
 
 </div>
@@ -713,30 +923,32 @@ ${g.owner?"Owner":"Member"}
 
 `;
 
-
 });
 
 
-}catch{}
+}catch(e){}
+
 
 }
 
 
 
-document.getElementById("year").innerText=
+year.innerText =
 new Date().getFullYear();
 
 
-stats();
+loadStats();
 
-servers();
+loadServers();
 
 
-setInterval(stats,30000);
+setInterval(
+loadStats,
+30000
+);
 
 
 </script>
-
 
 
 </body>
