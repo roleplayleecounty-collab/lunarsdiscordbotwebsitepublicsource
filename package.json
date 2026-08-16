@@ -1,41 +1,37 @@
 {
-  "name": "music-bot",
-  "version": "1.0.0",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/TannerGabriel/discord-music-bot.git"
-  },
-  "description": "A simple discord music bot",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "prettier --write \"**/*.js\""
-  },
-  "keywords": [
-    "discord",
-    "music",
-    "bot"
-  ],
-  "author": "Gabriel Tanner",
-  "license": "MIT",
-  "dependencies": {
-    "@discord-player/extractor": "^4.4.1",
-    "@discordjs/opus": "^0.9.0",
-    "@distube/ytdl-core": "4.14.4",
-    "conf": "^12.0.0",
-    "discord-player": "^6.6.2",
-    "discord.js": "^14.12.1",
-    "dotenv": "^16.6.1",
-    "ffmpeg": "0.0.4",
-    "fluent-ffmpeg": "^2.1.2",
-    "opusscript": "0.0.8",
-    "prism-media": "^1.3.5"
-  },
-  "devDependencies": {
-    "prettier": "3.0.2"
-  },
-  "bugs": {
-    "url": "https://github.com/TannerGabriel/discord-music-bot/issues"
-  },
-  "homepage": "https://github.com/TannerGabriel/discord-music-bot#readme"
+    "name": "elite-bot-music",
+    "version": "1.0.0",
+    "description": "Elite Bot's original music feature moved to a separate discord bot.",
+    "main": "index.js",
+    "scripts": {
+        "dev": "nodemon index.js",
+        "prettier": "prettier \"index.js\" \"{commands,events,utils}/**/*.{js,jsx,ts,tsx,css,md,mdx,json}\" --check",
+        "prettier:write": "prettier \"index.js\" \"{commands,events,utils}/**/*.{js,jsx,ts,tsx,css,md,mdx,json}\" --write",
+        "docker:latest": "node scripts/docker-build.js --latest",
+        "docker:build": "node scripts/docker-build.js"
+    },
+    "type": "commonjs",
+    "author": "ThatGuyJacobee",
+    "license": "ISC",
+    "dependencies": {
+        "@discordjs/opus": "^0.10.0",
+        "@discordjs/rest": "2.6.3",
+        "@snazzah/davey": "^0.1.12",
+        "bgutils-js": "^4.0.0",
+        "discord-api-types": "^0.38.50",
+        "discord-player": "^7.2.0",
+        "discord-player-youtubei": "^2.0.0",
+        "discord.js": "^14.27.0",
+        "dotenv": "^17.4.2",
+        "express": "^5.2.1",
+        "express-session": "^1.19.0",
+        "ffmpeg-static": "5.3.0",
+        "ms": "2.1.3",
+        "sodium-native": "^5.1.0",
+        "youtube-dl-exec": "^3.1.9"
+    },
+    "devDependencies": {
+        "nodemon": "^3.1.14",
+        "prettier": "^3.9.5"
+    }
 }
