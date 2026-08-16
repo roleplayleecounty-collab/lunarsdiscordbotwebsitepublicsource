@@ -1,1019 +1,743 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>LunarsMusicBot — Discord Music</title>
-    <meta name="description" content="LunarsMusicBot is a powerful Discord music bot with YouTube, SoundCloud, queues, playlists and more.">
-    <meta name="theme-color" content="#ff0000">
-
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        :root {
-            --red: #ff1744;
-            --red-dark: #b00020;
-            --bg: #070707;
-            --panel: #101010;
-            --panel-2: #151515;
-            --border: rgba(255,255,255,.08);
-            --text: #ffffff;
-            --muted: #9b9b9b;
-            --green: #42e87d;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: Inter, Arial, Helvetica, sans-serif;
-            background:
-                radial-gradient(circle at 50% -10%, rgba(255,0,0,.18), transparent 38%),
-                linear-gradient(180deg, #090909 0%, #050505 100%);
-            color: var(--text);
-            min-height: 100vh;
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        button {
-            font: inherit;
-        }
-
-        .nav {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            height: 74px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 5%;
-            background: rgba(5,5,5,.82);
-            backdrop-filter: blur(18px);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 21px;
-            font-weight: 900;
-            letter-spacing: -.5px;
-        }
-
-        .brand-icon {
-            width: 38px;
-            height: 38px;
-            border-radius: 12px;
-            display: grid;
-            place-items: center;
-            background: linear-gradient(135deg, #ff0033, #8b001b);
-            box-shadow: 0 0 28px rgba(255,0,45,.3);
-            font-size: 19px;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 25px;
-        }
-
-        .nav-links a {
-            color: #aaa;
-            font-size: 14px;
-            transition: .2s;
-        }
-
-        .nav-links a:hover {
-            color: white;
-        }
-
-        .login-btn {
-            border: 0;
-            cursor: pointer;
-            padding: 11px 17px;
-            border-radius: 10px;
-            background: #5865f2;
-            color: white;
-            font-weight: 800;
-            transition: .2s;
-        }
-
-        .login-btn:hover {
-            transform: translateY(-1px);
-            filter: brightness(1.12);
-        }
-
-        .hero {
-            width: min(1150px, 90%);
-            margin: auto;
-            min-height: 650px;
-            display: grid;
-            place-items: center;
-            text-align: center;
-            position: relative;
-        }
-
-        .hero-content {
-            max-width: 850px;
-            padding: 80px 0;
-        }
-
-        .status-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 9px;
-            padding: 8px 13px;
-            border: 1px solid rgba(66,232,125,.2);
-            background: rgba(66,232,125,.07);
-            border-radius: 999px;
-            color: #a5f5be;
-            font-size: 13px;
-            font-weight: 700;
-            margin-bottom: 24px;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--green);
-            box-shadow: 0 0 13px var(--green);
-        }
-
-        h1 {
-            font-size: clamp(52px, 8vw, 94px);
-            line-height: .92;
-            letter-spacing: -5px;
-            font-weight: 950;
-            margin-bottom: 25px;
-        }
-
-        .gradient {
-            background: linear-gradient(100deg, #fff, #ff405e 45%, #ff0033);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .hero p {
-            max-width: 700px;
-            margin: auto;
-            color: #a8a8a8;
-            font-size: 18px;
-            line-height: 1.7;
-        }
-
-        .hero-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 13px;
-            margin-top: 34px;
-            flex-wrap: wrap;
-        }
-
-        .primary,
-        .secondary {
-            padding: 15px 23px;
-            border-radius: 12px;
-            font-weight: 850;
-            border: 1px solid var(--border);
-            transition: .2s;
-        }
-
-        .primary {
-            background: linear-gradient(135deg, #ff1642, #c90028);
-            box-shadow: 0 10px 40px rgba(255,0,45,.2);
-        }
-
-        .secondary {
-            background: #121212;
-        }
-
-        .primary:hover,
-        .secondary:hover {
-            transform: translateY(-2px);
-        }
-
-        .stats {
-            width: min(1050px, 90%);
-            margin: -35px auto 90px;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-        }
-
-        .stat {
-            background: rgba(16,16,16,.8);
-            border: 1px solid var(--border);
-            border-radius: 17px;
-            padding: 28px;
-            text-align: center;
-        }
-
-        .stat strong {
-            display: block;
-            font-size: 30px;
-            margin-bottom: 7px;
-        }
-
-        .stat span {
-            color: var(--muted);
-            font-size: 13px;
-        }
-
-        section {
-            width: min(1100px, 90%);
-            margin: 0 auto 110px;
-        }
-
-        .section-title {
-            margin-bottom: 35px;
-        }
-
-        .eyebrow {
-            color: #ff3656;
-            font-weight: 900;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-        }
-
-        h2 {
-            font-size: clamp(30px, 5vw, 48px);
-            letter-spacing: -2px;
-        }
-
-        .section-title p {
-            margin-top: 12px;
-            color: var(--muted);
-            max-width: 650px;
-            line-height: 1.7;
-        }
-
-        .features {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-        }
-
-        .feature {
-            padding: 27px;
-            min-height: 190px;
-            background: linear-gradient(145deg, #121212, #0b0b0b);
-            border: 1px solid var(--border);
-            border-radius: 18px;
-            transition: .25s;
-        }
-
-        .feature:hover {
-            transform: translateY(-4px);
-            border-color: rgba(255,0,45,.35);
-        }
-
-        .feature-icon {
-            width: 43px;
-            height: 43px;
-            border-radius: 12px;
-            display: grid;
-            place-items: center;
-            background: rgba(255,0,45,.11);
-            margin-bottom: 19px;
-            font-size: 20px;
-        }
-
-        .feature h3 {
-            margin-bottom: 8px;
-        }
-
-        .feature p {
-            color: var(--muted);
-            line-height: 1.6;
-            font-size: 14px;
-        }
-
-        .dashboard {
-            background: linear-gradient(145deg, #111, #090909);
-            border: 1px solid var(--border);
-            border-radius: 22px;
-            overflow: hidden;
-        }
-
-        .dashboard-top {
-            padding: 20px 24px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .dashboard-title {
-            font-weight: 850;
-        }
-
-        .online {
-            color: #68ee96;
-            font-size: 13px;
-            font-weight: 700;
-        }
-
-        .dashboard-body {
-            padding: 25px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-
-        .music-card,
-        .server-card {
-            background: #0b0b0b;
-            border: 1px solid var(--border);
-            border-radius: 15px;
-            padding: 20px;
-        }
-
-        .music-card h3 {
-            margin-bottom: 6px;
-        }
-
-        .music-card p,
-        .server-card p {
-            color: var(--muted);
-            font-size: 13px;
-        }
-
-        .progress {
-            height: 6px;
-            background: #222;
-            border-radius: 10px;
-            margin: 20px 0 9px;
-            overflow: hidden;
-        }
-
-        .progress-bar {
-            width: 47%;
-            height: 100%;
-            background: var(--red);
-        }
-
-        .servers {
-            display: grid;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .server {
-            padding: 12px;
-            background: #121212;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            gap: 11px;
-        }
-
-        .server-avatar {
-            width: 35px;
-            height: 35px;
-            border-radius: 10px;
-            background: #272727;
-            display: grid;
-            place-items: center;
-            font-size: 14px;
-        }
-
-        .server-name {
-            font-weight: 700;
-            font-size: 13px;
-        }
-
-        .server-members {
-            color: #777;
-            font-size: 11px;
-            margin-top: 2px;
-        }
-
-        #serversSection {
-            display: none;
-        }
-
-        .empty {
-            padding: 45px;
-            text-align: center;
-            color: var(--muted);
-        }
-
-        footer {
-            border-top: 1px solid var(--border);
-            padding: 35px 5%;
-            color: #777;
-            text-align: center;
-            font-size: 13px;
-        }
-
-        .modal {
-            position: fixed;
-            inset: 0;
-            z-index: 3000;
-            background: rgba(0,0,0,.75);
-            backdrop-filter: blur(10px);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-box {
-            width: min(520px, 100%);
-            background: #111;
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 30px;
-            position: relative;
-            box-shadow: 0 25px 100px rgba(0,0,0,.5);
-        }
-
-        .close {
-            position: absolute;
-            right: 17px;
-            top: 14px;
-            border: 0;
-            background: transparent;
-            color: #aaa;
-            font-size: 25px;
-            cursor: pointer;
-        }
-
-        .modal h2 {
-            font-size: 30px;
-            margin-bottom: 10px;
-        }
-
-        .modal p {
-            color: var(--muted);
-            line-height: 1.6;
-        }
-
-        .user-box {
-            margin-top: 20px;
-            display: none;
-            align-items: center;
-            gap: 13px;
-            padding: 13px;
-            background: #0a0a0a;
-            border: 1px solid var(--border);
-            border-radius: 13px;
-        }
-
-        .user-avatar {
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            object-fit: cover;
-            background: #222;
-        }
-
-        .user-name {
-            font-weight: 800;
-        }
-
-        .logout {
-            margin-left: auto;
-            color: #ff5a70;
-            font-size: 12px;
-            font-weight: 800;
-        }
-
-        @media (max-width: 800px) {
-            .nav-links a {
-                display: none;
-            }
-
-            .features,
-            .stats,
-            .dashboard-body {
-                grid-template-columns: 1fr;
-            }
-
-            h1 {
-                letter-spacing: -3px;
-            }
-
-            .hero {
-                min-height: 570px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Lyra — Discord Bot</title>
+
+<meta name="description" content="Lyra is an advanced Discord bot with tickets, economy, moderation, logging and more.">
+<meta name="theme-color" content="#8b5cf6">
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Inter,Arial,sans-serif;
+    background:
+    radial-gradient(circle at top,#8b5cf633,transparent 35%),
+    #050505;
+    color:white;
+}
+
+
+a{
+    text-decoration:none;
+    color:white;
+}
+
+
+.nav{
+    height:75px;
+    position:sticky;
+    top:0;
+    z-index:100;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 6%;
+    background:#080808cc;
+    backdrop-filter:blur(15px);
+    border-bottom:1px solid #ffffff12;
+}
+
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-size:22px;
+    font-weight:900;
+}
+
+
+.logo{
+    width:42px;
+    height:42px;
+    border-radius:14px;
+    display:grid;
+    place-items:center;
+    background:linear-gradient(135deg,#a855f7,#6d28d9);
+    box-shadow:0 0 30px #8b5cf688;
+}
+
+
+.links{
+    display:flex;
+    gap:25px;
+}
+
+
+.links a{
+    color:#aaa;
+    font-size:14px;
+}
+
+
+.links a:hover{
+    color:white;
+}
+
+
+.login{
+    background:#5865f2;
+    border:0;
+    padding:12px 18px;
+    border-radius:12px;
+    font-weight:800;
+    cursor:pointer;
+    color:white;
+}
+
+
+
+.hero{
+    min-height:650px;
+    display:grid;
+    place-items:center;
+    text-align:center;
+    width:90%;
+    max-width:1100px;
+    margin:auto;
+}
+
+
+.badge{
+    display:inline-block;
+    padding:8px 15px;
+    border-radius:999px;
+    background:#22c55e22;
+    color:#86efac;
+    border:1px solid #22c55e44;
+    margin-bottom:25px;
+}
+
+
+h1{
+    font-size:90px;
+    line-height:.95;
+}
+
+
+.gradient{
+    background:linear-gradient(90deg,#fff,#a855f7,#6d28d9);
+    background-clip:text;
+    color:transparent;
+}
+
+
+.hero p{
+    margin-top:25px;
+    color:#aaa;
+    font-size:20px;
+}
+
+
+.buttons{
+    margin-top:35px;
+    display:flex;
+    justify-content:center;
+    gap:15px;
+}
+
+
+.btn{
+    padding:15px 25px;
+    border-radius:14px;
+    font-weight:900;
+}
+
+
+.primary{
+    background:linear-gradient(135deg,#a855f7,#6d28d9);
+}
+
+
+.secondary{
+    background:#151515;
+    border:1px solid #ffffff15;
+}
+
+
+
+.stats{
+
+width:90%;
+max-width:1000px;
+margin:-40px auto 100px;
+
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:15px;
+
+}
+
+
+.card{
+
+background:#101010;
+border:1px solid #ffffff12;
+padding:30px;
+border-radius:20px;
+text-align:center;
+
+}
+
+
+.card h2{
+font-size:35px;
+}
+
+
+.card p{
+color:#888;
+}
+
+
+
+
+
+section{
+
+width:90%;
+max-width:1100px;
+margin:100px auto;
+
+}
+
+
+
+.title{
+
+margin-bottom:35px;
+
+}
+
+
+.title span{
+
+color:#a855f7;
+font-weight:900;
+
+}
+
+
+
+.title h2{
+
+font-size:45px;
+
+}
+
+
+
+.title p{
+
+color:#999;
+margin-top:10px;
+
+}
+
+
+
+.features{
+
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px;
+
+}
+
+
+
+.feature{
+
+background:#111;
+padding:30px;
+border-radius:20px;
+border:1px solid #ffffff12;
+
+}
+
+
+
+.feature:hover{
+
+transform:translateY(-5px);
+border-color:#a855f7;
+
+}
+
+
+
+.icon{
+
+font-size:30px;
+margin-bottom:15px;
+
+}
+
+
+
+.feature p{
+
+color:#999;
+margin-top:10px;
+
+}
+
+
+
+
+.dashboard{
+
+background:#111;
+border:1px solid #ffffff12;
+border-radius:25px;
+padding:30px;
+
+}
+
+
+
+.server{
+
+background:#181818;
+padding:15px;
+border-radius:12px;
+margin-top:10px;
+display:flex;
+align-items:center;
+gap:15px;
+
+}
+
+
+
+.avatar{
+
+width:45px;
+height:45px;
+border-radius:50%;
+background:#a855f7;
+display:grid;
+place-items:center;
+
+}
+
+
+
+footer{
+
+border-top:1px solid #ffffff12;
+padding:30px;
+text-align:center;
+color:#777;
+
+}
+
+
+
+@media(max-width:800px){
+
+h1{
+font-size:55px;
+}
+
+.features,
+.stats{
+
+grid-template-columns:1fr;
+
+}
+
+.links{
+display:none;
+}
+
+}
+
+
+
+</style>
+
 </head>
+
 
 <body>
 
+
 <header class="nav">
-    <a href="/" class="brand">
-        <div class="brand-icon">♫</div>
-        <span>LunarsMusicBot</span>
-    </a>
 
-    <nav class="nav-links">
-        <a href="#features">Features</a>
-        <a href="#dashboard">Dashboard</a>
-        <a href="#servers">Servers</a>
-        <button class="login-btn" id="loginButton">Login with Discord</button>
-    </nav>
-</header>
-
-<main>
-
-    <section class="hero">
-        <div class="hero-content">
-
-            <div class="status-pill">
-                <span class="status-dot"></span>
-                LunarsMusicBot is online
-            </div>
-
-            <h1>
-                Your music.<br>
-                <span class="gradient">Your server.</span>
-            </h1>
-
-            <p>
-                Bring high-quality music, powerful queues, playlists and
-                smooth playback to your Discord server with LunarsMusicBot.
-            </p>
-
-            <div class="hero-buttons">
-                <a class="primary"
-                   href="https://discord.com/oauth2/authorize?client_id=1535562865610850314&scope=bot%20applications.commands&permissions=36700160"
-                   target="_blank">
-                    Add Lunars to Discord
-                </a>
-
-                <button class="secondary" id="heroLogin">
-                    Login with Discord
-                </button>
-            </div>
-
-        </div>
-    </section>
-
-    <div class="stats">
-        <div class="stat">
-            <strong id="botGuildCount">—</strong>
-            <span>Servers</span>
-        </div>
-
-        <div class="stat">
-            <strong id="botMemberCount">—</strong>
-            <span>Members reached</span>
-        </div>
-
-        <div class="stat">
-            <strong id="botStatus">Online</strong>
-            <span>Bot status</span>
-        </div>
-    </div>
-
-    <section id="features">
-
-        <div class="section-title">
-            <div class="eyebrow">Built for Discord</div>
-            <h2>Everything you need for music.</h2>
-            <p>
-                Simple commands for your community, powerful playback
-                underneath, and a clean experience for everyone.
-            </p>
-        </div>
-
-        <div class="features">
-
-            <article class="feature">
-                <div class="feature-icon">▶</div>
-                <h3>High Quality Playback</h3>
-                <p>
-                    Play music directly in your Discord voice channel
-                    with smooth queue management.
-                </p>
-            </article>
-
-            <article class="feature">
-                <div class="feature-icon">♫</div>
-                <h3>Multiple Sources</h3>
-                <p>
-                    Search and play music from supported music platforms
-                    without leaving Discord.
-                </p>
-            </article>
-
-            <article class="feature">
-                <div class="feature-icon">☷</div>
-                <h3>Smart Queues</h3>
-                <p>
-                    Queue tracks, skip songs, control volume and keep
-                    your entire server's music organized.
-                </p>
-            </article>
-
-            <article class="feature">
-                <div class="feature-icon">⚡</div>
-                <h3>Fast Commands</h3>
-                <p>
-                    Slash commands make controlling your music quick,
-                    simple and familiar.
-                </p>
-            </article>
-
-            <article class="feature">
-                <div class="feature-icon">◉</div>
-                <h3>Discord Integration</h3>
-                <p>
-                    Sign in with Discord and view the servers associated
-                    with your account.
-                </p>
-            </article>
-
-            <article class="feature">
-                <div class="feature-icon">◆</div>
-                <h3>Lunars Experience</h3>
-                <p>
-                    A custom dark interface designed around the Lunars
-                    MusicBot brand.
-                </p>
-            </article>
-
-        </div>
-    </section>
-
-    <section id="dashboard">
-
-        <div class="section-title">
-            <div class="eyebrow">Dashboard</div>
-            <h2>Your music at a glance.</h2>
-            <p>
-                A quick preview of what your Lunars dashboard can look like.
-            </p>
-        </div>
-
-        <div class="dashboard">
-
-            <div class="dashboard-top">
-                <div class="dashboard-title">Lunars Music Dashboard</div>
-                <div class="online">● Online</div>
-            </div>
-
-            <div class="dashboard-body">
-
-                <div class="music-card">
-                    <h3>♫ Now Playing</h3>
-                    <p>LunarsMusicBot</p>
-
-                    <div style="margin-top:20px;font-weight:800;">
-                        Music is ready to play
-                    </div>
-
-                    <div class="progress">
-                        <div class="progress-bar"></div>
-                    </div>
-
-                    <p>Queue controls available through Discord</p>
-                </div>
-
-                <div class="server-card">
-                    <h3>My Servers</h3>
-                    <p>Servers connected to your Discord account</p>
-
-                    <div id="previewServers" class="servers">
-                        <div class="server">
-                            <div class="server-avatar">L</div>
-                            <div>
-                                <div class="server-name">Lunars Community</div>
-                                <div class="server-members">Discord server</div>
-                            </div>
-                        </div>
-
-                        <div class="server">
-                            <div class="server-avatar">♫</div>
-                            <div>
-                                <div class="server-name">Music Lounge</div>
-                                <div class="server-members">Discord server</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-    </section>
-
-    <section id="serversSection">
-
-        <div class="section-title">
-            <div class="eyebrow">Discord</div>
-            <h2>My Servers</h2>
-            <p>
-                Servers available to your Discord account.
-            </p>
-        </div>
-
-        <div class="dashboard">
-            <div id="serverList" class="servers" style="padding:25px;">
-                <div class="empty">
-                    Loading your servers...
-                </div>
-            </div>
-        </div>
-
-    </section>
-
-    <section id="servers">
-
-        <div class="section-title">
-            <div class="eyebrow">Get Started</div>
-            <h2>Ready to start?</h2>
-            <p>
-                Invite LunarsMusicBot to your Discord server and start
-                playing music.
-            </p>
-        </div>
-
-        <div style="display:flex;gap:12px;flex-wrap:wrap;">
-            <a class="primary"
-               href="https://discord.com/oauth2/authorize?client_id=1535562865610850314&scope=bot%20applications.commands&permissions=36700160"
-               target="_blank">
-                Invite LunarsMusicBot
-            </a>
-
-            <button class="secondary" id="bottomLogin">
-                Login with Discord
-            </button>
-        </div>
-
-    </section>
-
-</main>
-
-<footer>
-    © <span id="year"></span> LunarsMusicBot · Built for Discord communities
-</footer>
-
-<div class="modal" id="loginModal">
-    <div class="modal-box">
-
-        <button class="close" id="closeModal">×</button>
-
-        <h2>Welcome to Lunars.</h2>
-
-        <p>
-            Sign in with Discord to view your Discord profile and servers
-            available to LunarsMusicBot.
-        </p>
-
-        <div class="user-box" id="userBox">
-            <img class="user-avatar" id="userAvatar" alt="Discord avatar">
-
-            <div>
-                <div class="user-name" id="userName">Discord User</div>
-                <div style="color:#777;font-size:12px;">Logged in</div>
-            </div>
-
-            <a class="logout" href="https://lunarsmusicbot.onrender.com/auth/logout">
-                Logout
-            </a>
-        </div>
-
-        <button
-            class="primary"
-            id="modalLogin"
-            style="width:100%;margin-top:20px;border:0;cursor:pointer;">
-            Continue with Discord
-        </button>
-
-    </div>
+<div class="brand">
+<div class="logo">🌙</div>
+Lyra
 </div>
 
+
+<div class="links">
+
+<a href="#features">Features</a>
+<a href="#dashboard">Dashboard</a>
+<a href="#servers">Servers</a>
+
+<button class="login" onclick="login()">
+Discord Login
+</button>
+
+</div>
+
+
+</header>
+
+
+
+<section class="hero">
+
+
+<div>
+
+<div class="badge">
+🟢 Lyra is Online
+</div>
+
+
+<h1>
+Your Discord.<br>
+<span class="gradient">
+Your Community.
+</span>
+</h1>
+
+
+<p>
+Lyra is a powerful Discord bot built with advanced tickets,
+economy, moderation, logging, badges and server protection.
+</p>
+
+
+<div class="buttons">
+
+<a class="btn primary" href="/invite">
+Invite Lyra
+</a>
+
+
+<button class="btn secondary" onclick="login()">
+Login With Discord
+</button>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+
+<div class="stats">
+
+
+<div class="card">
+<h2 id="guilds">0</h2>
+<p>Servers</p>
+</div>
+
+
+<div class="card">
+<h2 id="members">0</h2>
+<p>Users</p>
+</div>
+
+
+<div class="card">
+<h2 id="status">
+Online
+</h2>
+<p>Status</p>
+</div>
+
+
+</div>
+
+
+
+
+
+<section id="features">
+
+
+<div class="title">
+
+<span>FEATURES</span>
+
+<h2>
+Everything your server needs
+</h2>
+
+<p>
+Built for communities that want a powerful all-in-one Discord bot.
+</p>
+
+</div>
+
+
+
+
+<div class="features">
+
+
+<div class="feature">
+<div class="icon">🎫</div>
+<h3>Advanced Tickets</h3>
+<p>
+Custom ticket panels, claiming, closing, transcripts and staff tools.
+</p>
+</div>
+
+
+
+<div class="feature">
+<div class="icon">💰</div>
+<h3>Economy</h3>
+<p>
+Coins, daily rewards, work commands, payments and leaderboards.
+</p>
+</div>
+
+
+
+<div class="feature">
+<div class="icon">🛡️</div>
+<h3>Moderation</h3>
+<p>
+Powerful moderation commands to keep your server safe.
+</p>
+</div>
+
+
+
+<div class="feature">
+<div class="icon">📜</div>
+<h3>Logging</h3>
+<p>
+Track important server events automatically.
+</p>
+</div>
+
+
+
+<div class="feature">
+<div class="icon">🏆</div>
+<h3>Badges</h3>
+<p>
+Custom Lyra badges like Developer, Staff and Founder.
+</p>
+</div>
+
+
+
+<div class="feature">
+<div class="icon">🤖</div>
+<h3>Protection</h3>
+<p>
+Smart anti-spam and server protection systems.
+</p>
+</div>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+<section id="dashboard">
+
+<div class="title">
+
+<span>DASHBOARD</span>
+
+<h2>
+Your Lyra Control Center
+</h2>
+
+</div>
+
+
+<div class="dashboard">
+
+<h3>
+🌙 Lyra Dashboard
+</h3>
+
+<p style="color:#888;margin-top:10px;">
+Login with Discord to manage your servers.
+</p>
+
+
+</div>
+
+
+</section>
+
+
+
+
+<section id="servers">
+
+
+<div class="title">
+
+<span>SERVERS</span>
+
+<h2>
+Your Discord Servers
+</h2>
+
+</div>
+
+
+<div class="dashboard" id="serverList">
+
+Login to view your servers.....
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+<footer>
+
+© <span id="year"></span> Lyra Discord Bot
+
+</footer>
+
+
+
+
 <script>
-    /*
-     * Your Discord OAuth backend is on Render.
-     * Netlify only hosts this frontend.
-     */
-    const BACKEND_URL = "https://lunarsmusicbot.onrender.com";
 
-    const loginButton = document.getElementById("loginButton");
-    const heroLogin = document.getElementById("heroLogin");
-    const bottomLogin = document.getElementById("bottomLogin");
-    const modalLogin = document.getElementById("modalLogin");
 
-    const modal = document.getElementById("loginModal");
-    const closeModal = document.getElementById("closeModal");
+function login(){
 
-    function discordLogin() {
-        window.location.href = BACKEND_URL + "/auth/discord";
-    }
+window.location.href="/auth/discord";
 
-    loginButton.addEventListener("click", discordLogin);
-    heroLogin.addEventListener("click", discordLogin);
-    bottomLogin.addEventListener("click", discordLogin);
-    modalLogin.addEventListener("click", discordLogin);
+}
 
-    loginButton.addEventListener("contextmenu", function(e) {
-        e.preventDefault();
-    });
 
-    function openModal() {
-        modal.classList.add("active");
-    }
 
-    function closeLoginModal() {
-        modal.classList.remove("active");
-    }
+async function stats(){
 
-    loginButton.addEventListener("dblclick", openModal);
-    closeModal.addEventListener("click", closeLoginModal);
+try{
 
-    modal.addEventListener("click", function(e) {
-        if (e.target === modal) {
-            closeLoginModal();
-        }
-    });
+let r=await fetch("/api/bot/stats");
 
-    async function loadBotStats() {
-        try {
-            const response = await fetch(
-                BACKEND_URL + "/api/bot/stats"
-            );
+let d=await r.json();
 
-            if (!response.ok) {
-                throw new Error("Stats unavailable");
-            }
 
-            const data = await response.json();
+guilds.innerText=d.guilds;
+members.innerText=d.members;
+status.innerText=d.online?"Online":"Offline";
 
-            if (data.guilds !== undefined) {
-                document.getElementById("botGuildCount").textContent =
-                    Number(data.guilds).toLocaleString();
-            }
 
-            if (data.members !== undefined) {
-                document.getElementById("botMemberCount").textContent =
-                    Number(data.members).toLocaleString();
-            }
+}catch{}
 
-            if (data.online !== undefined) {
-                document.getElementById("botStatus").textContent =
-                    data.online ? "Online" : "Offline";
-            }
+}
 
-        } catch {
-            document.getElementById("botGuildCount").textContent = "—";
-            document.getElementById("botMemberCount").textContent = "—";
-        }
-    }
 
-    async function loadUser() {
-        try {
-            const response = await fetch(
-                BACKEND_URL + "/api/me",
-                {
-                    credentials: "include"
-                }
-            );
 
-            if (!response.ok) return;
 
-            const data = await response.json();
+async function servers(){
 
-            if (!data.loggedIn || !data.user) {
-                return;
-            }
+try{
 
-            const user = data.user;
 
-            document.getElementById("userName").textContent =
-                user.global_name || user.username;
+let r=await fetch("/api/guilds");
 
-            if (user.avatar) {
-                document.getElementById("userAvatar").src =
-                    `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=128`;
-            }
 
-            document.getElementById("userBox").style.display = "flex";
-            document.getElementById("serversSection").style.display = "block";
+if(!r.ok)return;
 
-            await loadGuilds();
 
-        } catch (error) {
-            console.error("Could not load Discord user:", error);
-        }
-    }
+let d=await r.json();
 
-    async function loadGuilds() {
-        const container = document.getElementById("serverList");
 
-        try {
-            const response = await fetch(
-                BACKEND_URL + "/api/guilds",
-                {
-                    credentials: "include"
-                }
-            );
+serverList.innerHTML="";
 
-            if (!response.ok) {
-                container.innerHTML =
-                    '<div class="empty">Unable to load your servers.</div>';
-                return;
-            }
 
-            const data = await response.json();
-            const guilds = data.guilds || [];
+d.guilds.forEach(g=>{
 
-            if (!guilds.length) {
-                container.innerHTML =
-                    '<div class="empty">No Discord servers were returned.</div>';
-                return;
-            }
 
-            container.innerHTML = "";
+serverList.innerHTML+=`
 
-            guilds.forEach(guild => {
+<div class="server">
 
-                const server = document.createElement("div");
-                server.className = "server";
+<div class="avatar">
+${g.name[0]}
+</div>
 
-                let iconHTML = "♫";
 
-                if (guild.icon) {
-                    iconHTML = `
-                        <img
-                            src="https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png?size=64"
-                            style="width:35px;height:35px;border-radius:10px;object-fit:cover;"
-                            alt=""
-                        >
-                    `;
-                }
+<div>
 
-                server.innerHTML = `
-                    <div class="server-avatar">
-                        ${iconHTML}
-                    </div>
+<b>${g.name}</b>
 
-                    <div style="flex:1;">
-                        <div class="server-name">
-                            ${escapeHTML(guild.name)}
-                        </div>
+<p style="color:#777">
+${g.owner?"Owner":"Member"}
+</p>
 
-                        <div class="server-members">
-                            ${guild.owner ? "Owner" : "Member"}
-                        </div>
-                    </div>
-                `;
+</div>
 
-                container.appendChild(server);
-            });
+</div>
 
-        } catch (error) {
-            console.error("Guild loading error:", error);
+`;
 
-            container.innerHTML =
-                '<div class="empty">Could not connect to the Lunars backend.</div>';
-        }
-    }
 
-    function escapeHTML(value) {
-        return String(value)
-            .replaceAll("&", "&amp;")
-            .replaceAll("<", "&lt;")
-            .replaceAll(">", "&gt;")
-            .replaceAll('"', "&quot;")
-            .replaceAll("'", "&#039;");
-    }
+});
 
-    document.getElementById("year").textContent =
-        new Date().getFullYear();
 
-    loadBotStats();
-    loadUser();
+}catch{}
 
-    /*
-     * Refresh public bot stats periodically.
-     */
-    setInterval(loadBotStats, 30000);
+}
+
+
+
+document.getElementById("year").innerText=
+new Date().getFullYear();
+
+
+stats();
+
+servers();
+
+
+setInterval(stats,30000);
+
+
 </script>
+
+
 
 </body>
 </html>
