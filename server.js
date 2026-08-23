@@ -1,11 +1,9 @@
 /*
-=========================================================
+============================================================
 🌙 LYRA SUPPORT WEBSITE
-=========================================================
+============================================================
 
-Express + Discord OAuth2 website
-
-Folder structure:
+Project:
 
 lyrasupport/
 │
@@ -19,48 +17,92 @@ lyrasupport/
 ├── .env
 └── .gitignore
 
-IMPORTANT:
-- Never upload .env to GitHub.
-- Put your secrets in Render Environment Variables.
-=========================================================
+
+FEATURES
+------------------------------------------------------------
+
+✅ Express website
+✅ Serves /public
+✅ Discord OAuth2 login
+✅ Secure OAuth state
+✅ Discord user profile
+✅ Discord avatar
+✅ Discord server list
+✅ Server permission detection
+✅ Owner detection
+✅ Administrator detection
+✅ Manage Server detection
+✅ Lyra invite links
+✅ Session login
+✅ Logout
+✅ Dashboard API
+✅ Health check
+✅ Error handling
+✅ Render compatible
+
+
+IMPORTANT
+------------------------------------------------------------
+
+DO NOT upload .env to GitHub.
+
+On Render, put your secrets in:
+
+Render
+→ Environment
+→ Environment Variables
+
+
+Required variables:
+
+DISCORD_CLIENT_ID
+DISCORD_CLIENT_SECRET
+DISCORD_REDIRECT_URI
+SESSION_SECRET
+
+============================================================
 */
 
 
-// =======================================================
+// ==========================================================
 // IMPORTS
-// =======================================================
+// ==========================================================
 
 const express = require("express");
+
 const session = require("express-session");
+
 const path = require("path");
+
 const crypto = require("crypto");
 
 
-// =======================================================
-// APP
-// =======================================================
+// ==========================================================
+// CREATE EXPRESS APP
+// ==========================================================
 
 const app = express();
 
 
-// =======================================================
+// ==========================================================
 // PORT
-// =======================================================
+// ==========================================================
 
-const PORT = process.env.PORT || 3000;
+const PORT =
+    process.env.PORT || 3000;
 
 
-// =======================================================
-// ENVIRONMENT VARIABLES
-// =======================================================
+// ==========================================================
+// DISCORD CONFIG
+// ==========================================================
 
-const CLIENT_ID =
+const DISCORD_CLIENT_ID =
     process.env.DISCORD_CLIENT_ID;
 
-const CLIENT_SECRET =
+const DISCORD_CLIENT_SECRET =
     process.env.DISCORD_CLIENT_SECRET;
 
-const REDIRECT_URI =
+const DISCORD_REDIRECT_URI =
     process.env.DISCORD_REDIRECT_URI ||
     `http://localhost:${PORT}/auth/discord/callback`;
 
@@ -68,40 +110,47 @@ const SESSION_SECRET =
     process.env.SESSION_SECRET;
 
 
-// =======================================================
-// CHECK REQUIRED ENVIRONMENT VARIABLES
-// =======================================================
+// ==========================================================
+// LYRA CONFIG
+// ==========================================================
+//
+// Discord permission values are bit flags.
+//
+// 0 = no permissions
+// 1024 = View Channel
+// 2048 = Send Messages
+// etc.
+//
+// You can change this later.
+//
+// Do NOT use 8 unless you intentionally want
+// Administrator permission.
+//
+// ==========================================================
 
-if (!CLIENT_ID) {
-
-    console.error(
-        "❌ Missing DISCORD_CLIENT_ID"
-    );
-
-}
-
-if (!CLIENT_SECRET) {
-
-    console.error(
-        "❌ Missing DISCORD_CLIENT_SECRET"
-    );
-
-}
-
-if (!SESSION_SECRET) {
-
-    console.error(
-        "❌ Missing SESSION_SECRET"
-    );
-
-}
+const LYRA_PERMISSIONS =
+    process.env.LYRA_PERMISSIONS || "0";
 
 
-// =======================================================
-// BASIC APP SETTINGS
-// =======================================================
+// ==========================================================
+// DISCORD API
+// ==========================================================
 
-app.disable("x-powered-by");
+const DISCORD_API =
+    "https://discord.com/api/v10";
+
+
+// ==========================================================
+// BASIC EXPRESS CONFIG
+// ==========================================================
+
+app.disable(
+    "x-powered-by"
+);
+
+
+// Render sits behind a proxy.
+// This allows secure cookies to work correctly.
 
 app.set(
     "trust proxy",
@@ -109,13 +158,14 @@ app.set(
 );
 
 
-// =======================================================
+// ==========================================================
 // BODY PARSING
-// =======================================================
+// ==========================================================
 
 app.use(
     express.json()
 );
+
 
 app.use(
     express.urlencoded({
@@ -124,31 +174,36 @@ app.use(
 );
 
 
-// =======================================================
+// ==========================================================
 // SESSION
-// =======================================================
+// ==========================================================
 
 app.use(
     session({
 
-        name: "lyra.sid",
+        name:
+            "lyra.sid",
 
         secret:
             SESSION_SECRET ||
-            crypto.randomBytes(32).toString("hex"),
+            crypto.randomBytes(48).toString("hex"),
 
-        resave: false,
+        resave:
+            false,
 
-        saveUninitialized: false,
+        saveUninitialized:
+            false,
 
         cookie: {
 
-            httpOnly: true,
+            httpOnly:
+                true,
 
             secure:
                 process.env.NODE_ENV === "production",
 
-            sameSite: "lax",
+            sameSite:
+                "lax",
 
             maxAge:
                 1000 *
@@ -163,27 +218,22 @@ app.use(
 );
 
 
-// =======================================================
-// STATIC WEBSITE
-// =======================================================
+// ==========================================================
+// SERVE PUBLIC FOLDER
+// ==========================================================
 //
-// This serves:
-//
-// /
-// /index.html
-// /style.css
-// /anything-inside-public
-//
-// Example:
+// This means:
 //
 // public/index.html
-//       ↓
-// https://lyrasupport.onrender.com/
+// → /
 //
 // public/style.css
-//       ↓
-// https://lyrasupport.onrender.com/style.css
-// =======================================================
+// → /style.css
+//
+// public/images/example.png
+// → /images/example.png
+//
+// ==========================================================
 
 app.use(
     express.static(
@@ -195,36 +245,107 @@ app.use(
 );
 
 
-// =======================================================
-// DISCORD API
-// =======================================================
+// ==========================================================
+// ENVIRONMENT CHECK
+// ==========================================================
 
-const DISCORD_API =
-    "https://discord.com/api/v10";
+function checkEnvironment() {
 
+    console.log(
+        ""
+    );
 
-// =======================================================
-// LYRA BOT CLIENT ID
-// =======================================================
+    console.log(
+        "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    );
 
-const LYRA_CLIENT_ID =
-    CLIENT_ID;
+    console.log(
+        "🌙 LYRA WEBSITE CONFIGURATION"
+    );
 
-
-// =======================================================
-// OAUTH SCOPES
-// =======================================================
-
-const OAUTH_SCOPES = [
-    "identify",
-    "guilds"
-];
+    console.log(
+        "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    );
 
 
-// =======================================================
-// HELPER:
-// GET DISCORD API
-// =======================================================
+    console.log(
+        `CLIENT ID: ${
+            DISCORD_CLIENT_ID
+                ? "✅ Loaded"
+                : "❌ Missing"
+        }`
+    );
+
+
+    console.log(
+        `CLIENT SECRET: ${
+            DISCORD_CLIENT_SECRET
+                ? "✅ Loaded"
+                : "❌ Missing"
+        }`
+    );
+
+
+    console.log(
+        `REDIRECT URI: ${
+            DISCORD_REDIRECT_URI
+        }`
+    );
+
+
+    console.log(
+        `SESSION SECRET: ${
+            SESSION_SECRET
+                ? "✅ Loaded"
+                : "❌ Missing"
+        }`
+    );
+
+
+    console.log(
+        `BOT PERMISSIONS: ${
+            LYRA_PERMISSIONS
+        }`
+    );
+
+
+    console.log(
+        "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    );
+
+
+    if (!DISCORD_CLIENT_ID) {
+
+        console.warn(
+            "⚠️ DISCORD_CLIENT_ID is missing."
+        );
+
+    }
+
+
+    if (!DISCORD_CLIENT_SECRET) {
+
+        console.warn(
+            "⚠️ DISCORD_CLIENT_SECRET is missing."
+        );
+
+    }
+
+
+    if (!SESSION_SECRET) {
+
+        console.warn(
+            "⚠️ SESSION_SECRET is missing."
+        );
+
+    }
+
+}
+
+
+// ==========================================================
+// DISCORD API REQUEST HELPER
+// ==========================================================
 
 async function discordRequest(
     endpoint,
@@ -240,10 +361,10 @@ async function discordRequest(
 
                 headers: {
 
-                    "Content-Type":
-                        "application/json",
+                    ...(options.headers || {}),
 
-                    ...(options.headers || {})
+                    "User-Agent":
+                        "LyraSupport/1.0"
 
                 }
 
@@ -251,7 +372,8 @@ async function discordRequest(
         );
 
 
-    let data;
+    let data = null;
+
 
     try {
 
@@ -260,7 +382,8 @@ async function discordRequest(
 
     } catch {
 
-        data = null;
+        data =
+            null;
 
     }
 
@@ -269,14 +392,17 @@ async function discordRequest(
 
         const error =
             new Error(
-                `Discord API returned ${response.status}`
+                `Discord API error: ${response.status}`
             );
+
 
         error.status =
             response.status;
 
+
         error.data =
             data;
+
 
         throw error;
 
@@ -288,10 +414,9 @@ async function discordRequest(
 }
 
 
-// =======================================================
-// HELPER:
-// GET USER PROFILE
-// =======================================================
+// ==========================================================
+// GET DISCORD USER
+// ==========================================================
 
 async function getDiscordUser(
     accessToken
@@ -314,10 +439,9 @@ async function getDiscordUser(
 }
 
 
-// =======================================================
-// HELPER:
-// GET USER GUILDS
-// =======================================================
+// ==========================================================
+// GET DISCORD GUILDS
+// ==========================================================
 
 async function getDiscordGuilds(
     accessToken
@@ -340,10 +464,9 @@ async function getDiscordGuilds(
 }
 
 
-// =======================================================
-// HELPER:
-// CREATE DISCORD AVATAR URL
-// =======================================================
+// ==========================================================
+// GET USER AVATAR
+// ==========================================================
 
 function getAvatarURL(
     user
@@ -359,15 +482,31 @@ function getAvatarURL(
     if (user.avatar) {
 
         return (
-            `https://cdn.discordapp.com/avatars/` +
-            `${user.id}/${user.avatar}.png?size=256`
+            "https://cdn.discordapp.com/avatars/" +
+            `${user.id}/` +
+            `${user.avatar}.png?size=256`
         );
 
     }
 
 
-    const discriminator =
-        Number(user.discriminator) || 0;
+    // Discord default avatar
+
+    let discriminator =
+        Number(
+            user.discriminator
+        );
+
+
+    if (
+        Number.isNaN(
+            discriminator
+        )
+    ) {
+
+        discriminator = 0;
+
+    }
 
 
     const defaultAvatar =
@@ -375,49 +514,157 @@ function getAvatarURL(
 
 
     return (
-        `https://cdn.discordapp.com/embed/avatars/` +
+        "https://cdn.discordapp.com/embed/avatars/" +
         `${defaultAvatar}.png`
     );
 
 }
 
 
-// =======================================================
-// HELPER:
-// CHECK SERVER PERMISSIONS
-// =======================================================
+// ==========================================================
+// GET SERVER ICON
+// ==========================================================
+
+function getGuildIconURL(
+    guild
+) {
+
+    if (
+        !guild ||
+        !guild.icon
+    ) {
+
+        return null;
+
+    }
+
+
+    return (
+        "https://cdn.discordapp.com/icons/" +
+        `${guild.id}/` +
+        `${guild.icon}.png?size=256`
+    );
+
+}
+
+
+// ==========================================================
+// DISCORD PERMISSION FLAGS
+// ==========================================================
+
+const PERMISSIONS = {
+
+    ADMINISTRATOR:
+        1n << 3n,
+
+    MANAGE_GUILD:
+        1n << 5n
+
+};
+
+
+// ==========================================================
+// GET SERVER PERMISSIONS
+// ==========================================================
 
 function getGuildPermissions(
     guild
 ) {
 
-    const permissions =
-        BigInt(
-            guild.permissions || "0"
-        );
+    let permissions =
+        0n;
 
 
-    // Discord permission flags
+    try {
 
-    const ADMINISTRATOR =
-        1n << 3n;
+        permissions =
+            BigInt(
+                guild.permissions || "0"
+            );
 
-    const MANAGE_GUILD =
-        1n << 5n;
+    } catch {
+
+        permissions =
+            0n;
+
+    }
 
 
     const administrator =
-        (permissions &
-            ADMINISTRATOR) !== 0n;
+        (
+            permissions &
+            PERMISSIONS.ADMINISTRATOR
+        ) !== 0n;
 
 
     const manageGuild =
-        (permissions &
-            MANAGE_GUILD) !== 0n;
+        (
+            permissions &
+            PERMISSIONS.MANAGE_GUILD
+        ) !== 0n;
 
 
     const owner =
         guild.owner === true;
+
+
+    /*
+    --------------------------------------------------------
+    CAN INVITE
+    --------------------------------------------------------
+
+    A user can normally manage the server if:
+
+    - They own it
+    - They have Administrator
+    - They have Manage Server
+
+    --------------------------------------------------------
+    */
+
+    const canInvite =
+        owner ||
+        administrator ||
+        manageGuild;
+
+
+    let permissionType =
+        "member";
+
+
+    let permissionLabel =
+        "Member";
+
+
+    if (owner) {
+
+        permissionType =
+            "owner";
+
+        permissionLabel =
+            "Owner";
+
+    }
+
+    else if (administrator) {
+
+        permissionType =
+            "administrator";
+
+        permissionLabel =
+            "Administrator";
+
+    }
+
+    else if (manageGuild) {
+
+        permissionType =
+            "manager";
+
+        permissionLabel =
+            "Manage Server";
+
+    }
 
 
     return {
@@ -428,20 +675,56 @@ function getGuildPermissions(
 
         manageGuild,
 
-        canInvite:
-            owner ||
-            administrator ||
-            manageGuild
+        canInvite,
+
+        permissionType,
+
+        permissionLabel
 
     };
 
 }
 
 
-// =======================================================
-// HELPER:
-// FORMAT SERVER DATA
-// =======================================================
+// ==========================================================
+// CREATE BOT INVITE
+// ==========================================================
+
+function createInviteURL(
+    guildId
+) {
+
+    const params =
+        new URLSearchParams({
+
+            client_id:
+                DISCORD_CLIENT_ID,
+
+            permissions:
+                String(
+                    LYRA_PERMISSIONS
+                ),
+
+            scope:
+                "bot applications.commands",
+
+            guild_id:
+                guildId
+
+        });
+
+
+    return (
+        "https://discord.com/oauth2/authorize?" +
+        params.toString()
+    );
+
+}
+
+
+// ==========================================================
+// FORMAT GUILD
+// ==========================================================
 
 function formatGuild(
     guild
@@ -453,70 +736,6 @@ function formatGuild(
         );
 
 
-    let icon = null;
-
-
-    if (guild.icon) {
-
-        icon =
-            `https://cdn.discordapp.com/icons/` +
-            `${guild.id}/${guild.icon}.png?size=256`;
-
-    }
-
-
-    let permissionLabel =
-        "Member";
-
-
-    let permissionType =
-        "member";
-
-
-    if (permissions.owner) {
-
-        permissionLabel =
-            "Owner";
-
-        permissionType =
-            "owner";
-
-    } else if (
-        permissions.administrator
-    ) {
-
-        permissionLabel =
-            "Administrator";
-
-        permissionType =
-            "administrator";
-
-    } else if (
-        permissions.manageGuild
-    ) {
-
-        permissionLabel =
-            "Manage Server";
-
-        permissionType =
-            "manager";
-
-    }
-
-
-    // Bot invite URL
-    //
-    // This sends the user to Discord's
-    // authorization page for Lyra.
-
-    const inviteURL =
-        `https://discord.com/oauth2/authorize` +
-        `?client_id=${encodeURIComponent(LYRA_CLIENT_ID)}` +
-        `&permissions=8` +
-        `&scope=bot%20applications.commands` +
-        `&guild_id=${encodeURIComponent(guild.id)}`;
-
-
     return {
 
         id:
@@ -525,7 +744,10 @@ function formatGuild(
         name:
             guild.name,
 
-        icon,
+        icon:
+            getGuildIconURL(
+                guild
+            ),
 
         owner:
             permissions.owner,
@@ -539,20 +761,27 @@ function formatGuild(
         canInvite:
             permissions.canInvite,
 
-        permissionLabel,
+        permissionType:
+            permissions.permissionType,
 
-        permissionType,
+        permissionLabel:
+            permissions.permissionLabel,
 
-        inviteURL
+        inviteURL:
+            permissions.canInvite
+                ? createInviteURL(
+                    guild.id
+                )
+                : null
 
     };
 
 }
 
 
-// =======================================================
+// ==========================================================
 // HOME PAGE
-// =======================================================
+// ==========================================================
 
 app.get(
     "/",
@@ -570,93 +799,108 @@ app.get(
 );
 
 
-// =======================================================
+// ==========================================================
 // DISCORD LOGIN
-// =======================================================
+// ==========================================================
 //
-// User visits:
+// User clicks:
+//
+// Login with Discord
+//
+// Browser goes:
 //
 // /auth/discord
 //
-// Then gets redirected to Discord.
+// Then we redirect to Discord.
 //
-// =======================================================
+// ==========================================================
 
 app.get(
     "/auth/discord",
     (req, res) => {
 
         if (
-            !CLIENT_ID ||
-            !CLIENT_SECRET
+            !DISCORD_CLIENT_ID ||
+            !DISCORD_CLIENT_SECRET
         ) {
 
-            return res.status(500).send(
-                "Discord OAuth is not configured."
+            console.error(
+                "❌ Discord OAuth is not configured."
+            );
+
+
+            return res.status(
+                500
+            ).send(
+                "Discord login is not configured on this server."
             );
 
         }
 
 
+        // --------------------------------------------------
+        // CREATE OAUTH STATE
+        // --------------------------------------------------
+
         const state =
             crypto
-                .randomBytes(32)
-                .toString("hex");
+                .randomBytes(
+                    32
+                )
+                .toString(
+                    "hex"
+                );
 
-
-        // Save state in session
-        // to protect against OAuth attacks.
 
         req.session.oauthState =
             state;
 
 
+        // --------------------------------------------------
+        // DISCORD OAUTH PARAMETERS
+        // --------------------------------------------------
+
         const params =
             new URLSearchParams({
 
                 client_id:
-                    CLIENT_ID,
+                    DISCORD_CLIENT_ID,
 
                 redirect_uri:
-                    REDIRECT_URI,
+                    DISCORD_REDIRECT_URI,
 
                 response_type:
                     "code",
 
                 scope:
-                    OAUTH_SCOPES.join(" "),
+                    "identify guilds",
 
                 state
 
             });
 
 
-        const discordURL =
-            `https://discord.com/oauth2/authorize?${params.toString()}`;
+        const authorizationURL =
+            "https://discord.com/oauth2/authorize?" +
+            params.toString();
 
 
         console.log(
-            "🔵 Redirecting user to Discord OAuth"
+            "🔵 Starting Discord OAuth..."
         );
 
 
         res.redirect(
-            discordURL
+            authorizationURL
         );
 
     }
 );
 
 
-// =======================================================
+// ==========================================================
 // DISCORD CALLBACK
-// =======================================================
-//
-// Discord redirects here:
-//
-// /auth/discord/callback
-//
-// =======================================================
+// ==========================================================
 
 app.get(
     "/auth/discord/callback",
@@ -667,19 +911,23 @@ app.get(
             const {
                 code,
                 state,
-                error
+                error,
+                error_description
             } = req.query;
 
 
             // ------------------------------------------------
-            // USER CANCELLED LOGIN
+            // DISCORD ERROR
             // ------------------------------------------------
 
             if (error) {
 
-                console.log(
-                    `⚠️ Discord OAuth cancelled: ${error}`
+                console.warn(
+                    "⚠️ Discord OAuth error:",
+                    error,
+                    error_description || ""
                 );
+
 
                 return res.redirect(
                     "/?login=cancelled"
@@ -689,47 +937,63 @@ app.get(
 
 
             // ------------------------------------------------
-            // NO CODE
+            // CHECK CODE
             // ------------------------------------------------
 
             if (!code) {
 
-                return res.status(400).send(
-                    "Missing Discord authorization code."
+                console.error(
+                    "❌ No OAuth code received."
+                );
+
+
+                return res.status(
+                    400
+                ).send(
+                    "Discord did not provide an authorization code."
                 );
 
             }
 
 
             // ------------------------------------------------
-            // CHECK OAUTH STATE
+            // CHECK STATE
             // ------------------------------------------------
 
             if (
                 !state ||
+                !req.session.oauthState ||
                 state !==
                     req.session.oauthState
             ) {
 
-                console.warn(
-                    "⚠️ Invalid OAuth state."
+                console.error(
+                    "❌ Invalid OAuth state."
                 );
 
-                return res.status(403).send(
-                    "Invalid OAuth state."
+
+                return res.status(
+                    403
+                ).send(
+                    "Invalid OAuth state. Please try logging in again."
                 );
 
             }
 
 
-            // State should only be used once.
+            // State is single-use.
 
             delete req.session.oauthState;
 
 
             // ------------------------------------------------
-            // EXCHANGE CODE FOR TOKEN
+            // EXCHANGE CODE
             // ------------------------------------------------
+
+            console.log(
+                "🔄 Exchanging Discord OAuth code..."
+            );
+
 
             const tokenResponse =
                 await fetch(
@@ -750,18 +1014,19 @@ app.get(
                             new URLSearchParams({
 
                                 client_id:
-                                    CLIENT_ID,
+                                    DISCORD_CLIENT_ID,
 
                                 client_secret:
-                                    CLIENT_SECRET,
+                                    DISCORD_CLIENT_SECRET,
 
                                 grant_type:
                                     "authorization_code",
 
-                                code,
+                                code:
+                                    code,
 
                                 redirect_uri:
-                                    REDIRECT_URI
+                                    DISCORD_REDIRECT_URI
 
                             })
 
@@ -778,42 +1043,64 @@ app.get(
             ) {
 
                 console.error(
-                    "❌ Discord token exchange failed:",
+                    "❌ Token exchange failed:",
                     tokenData
                 );
 
-                return res.status(500).send(
-                    "Could not complete Discord login."
+
+                return res.status(
+                    500
+                ).send(
+                    "Discord login could not be completed."
                 );
 
             }
 
 
             // ------------------------------------------------
-            // SAVE TOKEN
+            // ACCESS TOKEN
             // ------------------------------------------------
 
-            req.session.accessToken =
+            const accessToken =
                 tokenData.access_token;
 
 
+            if (!accessToken) {
+
+                throw new Error(
+                    "Discord did not return an access token."
+                );
+
+            }
+
+
             // ------------------------------------------------
-            // GET DISCORD USER
+            // GET USER
             // ------------------------------------------------
+
+            console.log(
+                "👤 Getting Discord user..."
+            );
+
 
             const user =
                 await getDiscordUser(
-                    tokenData.access_token
+                    accessToken
                 );
 
 
             // ------------------------------------------------
-            // GET DISCORD SERVERS
+            // GET SERVERS
             // ------------------------------------------------
+
+            console.log(
+                "🌐 Getting Discord servers..."
+            );
+
 
             const guilds =
                 await getDiscordGuilds(
-                    tokenData.access_token
+                    accessToken
                 );
 
 
@@ -821,7 +1108,7 @@ app.get(
             // FORMAT USER
             // ------------------------------------------------
 
-            req.session.user = {
+            const formattedUser = {
 
                 id:
                     user.id,
@@ -837,63 +1124,150 @@ app.get(
                     user.discriminator,
 
                 avatar:
-                    getAvatarURL(user)
+                    getAvatarURL(
+                        user
+                    )
 
             };
 
 
             // ------------------------------------------------
-            // FORMAT SERVERS
+            // FORMAT GUILDS
             // ------------------------------------------------
 
-            req.session.guilds =
+            const formattedGuilds =
                 guilds.map(
                     formatGuild
                 );
 
 
-            console.log(
-                "━━━━━━━━━━━━━━━━━━━━━━━━━━"
-            );
+            // ------------------------------------------------
+            // SAVE SESSION
+            // ------------------------------------------------
 
-            console.log(
-                "🌙 DISCORD LOGIN"
-            );
+            req.session.user =
+                formattedUser;
 
-            console.log(
-                `User: ${user.username}`
-            );
 
-            console.log(
-                `ID: ${user.id}`
-            );
+            req.session.guilds =
+                formattedGuilds;
 
-            console.log(
-                `Servers: ${guilds.length}`
-            );
 
-            console.log(
-                "━━━━━━━━━━━━━━━━━━━━━━━━━━"
-            );
+            // We don't actually need to keep
+            // the Discord access token for this
+            // dashboard.
+
+            req.session.accessToken =
+                accessToken;
 
 
             // ------------------------------------------------
-            // REDIRECT HOME
+            // SAVE SESSION
             // ------------------------------------------------
 
-            res.redirect(
-                "/?login=success"
+            req.session.save(
+                error => {
+
+                    if (error) {
+
+                        console.error(
+                            "❌ Session save failed:",
+                            error
+                        );
+
+
+                        return res.status(
+                            500
+                        ).send(
+                            "Could not save your login session."
+                        );
+
+                    }
+
+
+                    console.log(
+                        ""
+                    );
+
+                    console.log(
+                        "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+                    );
+
+                    console.log(
+                        "🌙 LYRA DISCORD LOGIN"
+                    );
+
+                    console.log(
+                        "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+                    );
+
+                    console.log(
+                        `👤 User: ${
+                            formattedUser.username
+                        }`
+                    );
+
+                    console.log(
+                        `🆔 ID: ${
+                            formattedUser.id
+                        }`
+                    );
+
+                    console.log(
+                        `🌐 Servers: ${
+                            formattedGuilds.length
+                        }`
+                    );
+
+                    console.log(
+                        `🤖 Inviteable Servers: ${
+                            formattedGuilds.filter(
+                                guild =>
+                                    guild.canInvite
+                            ).length
+                        }`
+                    );
+
+                    console.log(
+                        "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+                    );
+
+
+                    res.redirect(
+                        "/?login=success"
+                    );
+
+                }
             );
 
-        } catch (error) {
+        }
+
+        catch (error) {
 
             console.error(
-                "❌ Discord OAuth error:",
+                ""
+            );
+
+            console.error(
+                "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            );
+
+            console.error(
+                "❌ DISCORD LOGIN FAILED"
+            );
+
+            console.error(
                 error
             );
 
+            console.error(
+                "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            );
 
-            res.status(500).send(
+
+            res.status(
+                500
+            ).send(
                 "Something went wrong while logging into Discord."
             );
 
@@ -903,15 +1277,9 @@ app.get(
 );
 
 
-// =======================================================
-// CURRENT USER
-// =======================================================
-//
-// Frontend can request:
-//
-// GET /api/user
-//
-// =======================================================
+// ==========================================================
+// API: CURRENT USER
+// ==========================================================
 
 app.get(
     "/api/user",
@@ -948,13 +1316,9 @@ app.get(
 );
 
 
-// =======================================================
-// CURRENT USER'S SERVERS
-// =======================================================
-//
-// GET /api/guilds
-//
-// =======================================================
+// ==========================================================
+// API: USER SERVERS
+// ==========================================================
 
 app.get(
     "/api/guilds",
@@ -964,10 +1328,15 @@ app.get(
             !req.session.user
         ) {
 
-            return res.status(401).json({
+            return res.status(
+                401
+            ).json({
+
+                loggedIn:
+                    false,
 
                 error:
-                    "Not logged in."
+                    "You are not logged in."
 
             });
 
@@ -988,20 +1357,15 @@ app.get(
 );
 
 
-// =======================================================
-// FULL DASHBOARD DATA
-// =======================================================
+// ==========================================================
+// API: FULL DASHBOARD
+// ==========================================================
 //
-// Instead of making the frontend request:
-//
-// /api/user
-// /api/guilds
-//
-// it can simply request:
+// Your index.html uses this endpoint.
 //
 // /api/dashboard
 //
-// =======================================================
+// ==========================================================
 
 app.get(
     "/api/dashboard",
@@ -1044,20 +1408,53 @@ app.get(
 );
 
 
-// =======================================================
+// ==========================================================
+// API: BOT INFORMATION
+// ==========================================================
+
+app.get(
+    "/api/bot",
+    (req, res) => {
+
+        res.json({
+
+            name:
+                "Lyra",
+
+            clientId:
+                DISCORD_CLIENT_ID,
+
+            permissions:
+                LYRA_PERMISSIONS,
+
+            commands:
+                25,
+
+            status:
+                "online"
+
+        });
+
+    }
+);
+
+
+// ==========================================================
 // LOGOUT
-// =======================================================
+// ==========================================================
 
 app.get(
     "/auth/logout",
     (req, res) => {
 
         const username =
-            req.session.user?.username;
+            req.session.user
+                ? req.session.user.username
+                : "Unknown";
 
 
         req.session.destroy(
-            (error) => {
+            error => {
 
                 if (error) {
 
@@ -1066,7 +1463,10 @@ app.get(
                         error
                     );
 
-                    return res.status(500).send(
+
+                    return res.status(
+                        500
+                    ).send(
                         "Could not log out."
                     );
 
@@ -1079,9 +1479,7 @@ app.get(
 
 
                 console.log(
-                    `👋 Logged out: ${
-                        username || "Unknown user"
-                    }`
+                    `👋 ${username} logged out.`
                 );
 
 
@@ -1096,26 +1494,34 @@ app.get(
 );
 
 
-// =======================================================
+// ==========================================================
 // HEALTH CHECK
-// =======================================================
+// ==========================================================
 //
-// Render can use this to determine whether
-// the website is alive.
+// Useful for Render.
 //
-// =======================================================
+// Open:
+//
+// /health
+//
+// ==========================================================
 
 app.get(
     "/health",
     (req, res) => {
 
-        res.status(200).json({
+        res.status(
+            200
+        ).json({
 
             status:
                 "online",
 
             service:
                 "Lyra Support",
+
+            uptime:
+                process.uptime(),
 
             timestamp:
                 new Date().toISOString()
@@ -1126,14 +1532,14 @@ app.get(
 );
 
 
-// =======================================================
-// 404 HANDLER
-// =======================================================
+// ==========================================================
+// 404
+// ==========================================================
 
 app.use(
     (req, res) => {
 
-        // API requests get JSON.
+        // API 404
 
         if (
             req.path.startsWith(
@@ -1141,7 +1547,9 @@ app.use(
             )
         ) {
 
-            return res.status(404).json({
+            return res.status(
+                404
+            ).json({
 
                 error:
                     "API endpoint not found."
@@ -1151,9 +1559,11 @@ app.use(
         }
 
 
-        // Everything else gets the website.
+        // Website 404
 
-        res.status(404).sendFile(
+        res.status(
+            404
+        ).sendFile(
             path.join(
                 __dirname,
                 "public",
@@ -1165,9 +1575,9 @@ app.use(
 );
 
 
-// =======================================================
+// ==========================================================
 // ERROR HANDLER
-// =======================================================
+// ==========================================================
 
 app.use(
     (
@@ -1178,11 +1588,11 @@ app.use(
     ) => {
 
         console.error(
-            "━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
         );
 
         console.error(
-            "❌ WEBSITE ERROR"
+            "❌ EXPRESS ERROR"
         );
 
         console.error(
@@ -1190,7 +1600,7 @@ app.use(
         );
 
         console.error(
-            "━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
         );
 
 
@@ -1198,7 +1608,9 @@ app.use(
             res.headersSent
         ) {
 
-            return next(error);
+            return next(
+                error
+            );
 
         }
 
@@ -1209,7 +1621,9 @@ app.use(
             )
         ) {
 
-            return res.status(500).json({
+            return res.status(
+                500
+            ).json({
 
                 error:
                     "Internal server error."
@@ -1219,17 +1633,22 @@ app.use(
         }
 
 
-        res.status(500).send(
-            "Lyra encountered a server error."
+        res.status(
+            500
+        ).send(
+            "Lyra encountered an internal server error."
         );
 
     }
 );
 
 
-// =======================================================
+// ==========================================================
 // START SERVER
-// =======================================================
+// ==========================================================
+
+checkEnvironment();
+
 
 app.listen(
     PORT,
@@ -1240,7 +1659,7 @@ app.listen(
         );
 
         console.log(
-            "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
         );
 
         console.log(
@@ -1248,50 +1667,34 @@ app.listen(
         );
 
         console.log(
-            "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
         );
 
         console.log(
-            `🌐 Port: ${PORT}`
+            `🚀 Server running on port ${PORT}`
         );
 
         console.log(
-            `📁 Public: ${path.join(
+            `📁 Serving: ${path.join(
                 __dirname,
                 "public"
             )}`
         );
 
         console.log(
-            `🔗 Redirect: ${REDIRECT_URI}`
+            `🌐 Website: http://localhost:${PORT}`
         );
 
         console.log(
-            `🔵 Discord OAuth: ${
-                CLIENT_ID
-                    ? "Configured"
-                    : "MISSING"
-            }`
+            `🔵 Login: http://localhost:${PORT}/auth/discord`
         );
 
         console.log(
-            `🔐 Client Secret: ${
-                CLIENT_SECRET
-                    ? "Configured"
-                    : "MISSING"
-            }`
+            `❤️ Health: http://localhost:${PORT}/health`
         );
 
         console.log(
-            `🍪 Sessions: ${
-                SESSION_SECRET
-                    ? "Configured"
-                    : "MISSING"
-            }`
-        );
-
-        console.log(
-            "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
         );
 
         console.log(
@@ -1299,7 +1702,7 @@ app.listen(
         );
 
         console.log(
-            "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
         );
 
     }
