@@ -3,6 +3,10 @@
 
 <head>
 
+    <!-- =====================================================
+         BASIC META
+    ====================================================== -->
+
     <meta charset="UTF-8">
 
     <meta
@@ -17,20 +21,48 @@
 
     <meta
         name="description"
-        content="Lyra is an advanced Discord bot for moderation, tickets, economy, logging, music and more."
+        content="Lyra is a powerful Discord bot built for modern communities. Tickets, economy, voice, badges, server tools and more."
     >
 
-    <title>Lyra — Discord Bot</title>
+    <meta
+        name="keywords"
+        content="Lyra, Discord bot, Discord, tickets, economy, moderation, community bot"
+    >
 
-    <!--
-        IMPORTANT:
-        style.css is inside /public
-    -->
+    <meta
+        name="author"
+        content="Lyra"
+    >
+
+
+    <!-- =====================================================
+         TITLE
+    ====================================================== -->
+
+    <title>
+        Lyra — Powerful Discord Bot
+    </title>
+
+
+    <!-- =====================================================
+         STYLESHEET
+    ====================================================== -->
 
     <link
         rel="stylesheet"
-        href="/style.css"
+        href="style.css"
     >
+
+
+    <!-- =====================================================
+         FAVICON
+    ====================================================== -->
+
+    <link
+        rel="icon"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🌙%3C/text%3E%3C/svg%3E"
+    >
+
 
 </head>
 
@@ -39,1765 +71,3324 @@
 
 
 <!-- =====================================================
-     NAVIGATION
-===================================================== -->
-
-<nav>
-
-    <a
-        href="/"
-        class="logo"
-    >
-        🌙 <span>Lyra</span>
-    </a>
-
-
-    <div class="nav-right">
-
-        <a
-            href="#features"
-            class="nav-link"
-        >
-            Features
-        </a>
-
-        <a
-            href="#commands"
-            class="nav-link"
-        >
-            Commands
-        </a>
-
-        <a
-            href="#servers"
-            class="nav-link"
-        >
-            Servers
-        </a>
-
-
-        <!-- LOGIN AREA -->
-
-        <div id="authArea">
-
-            <a
-                href="/auth/discord"
-                class="login-button"
-            >
-                🔵 Login with Discord
-            </a>
-
-        </div>
-
-
-        <!-- SETTINGS -->
-
-        <div class="settings">
-
-            <button
-                type="button"
-                onclick="toggleSettings()"
-                aria-label="Open settings"
-            >
-                ⚙️
-            </button>
-
-        </div>
-
-    </div>
-
-</nav>
-
-
-
-<!-- =====================================================
-     SETTINGS PANEL
-===================================================== -->
+     PAGE LOADER
+====================================================== -->
 
 <div
-    class="panel"
-    id="settingsPanel"
+    class="page-loader"
+    id="pageLoader"
 >
 
-    <h3>
-        ⚙️ Website Settings
-    </h3>
+    <div class="loader-content">
 
-    <br>
+        <div class="loader-logo">
+            🌙
+        </div>
 
+        <div class="loader-name">
+            Lyra
+        </div>
 
-    <label>
-        Theme
-    </label>
+        <div class="loader-bar">
 
+            <span></span>
 
-    <div>
+        </div>
 
-        <button
-            type="button"
-            onclick="setTheme('dark')"
-        >
-            🌙 Dark
-        </button>
-
-
-        <button
-            type="button"
-            onclick="setTheme('light')"
-        >
-            ☀️ Light
-        </button>
+        <p>
+            Loading experience...
+        </p>
 
     </div>
-
-
-    <br>
-
-
-    <label>
-        Accent Color
-    </label>
-
-
-    <input
-        type="color"
-        id="colorPicker"
-        value="#8b5cf6"
-        onchange="changeAccent(this.value)"
-    >
 
 </div>
 
 
+<!-- =====================================================
+     BACKGROUND
+====================================================== -->
+
+<div class="site-background">
+
+    <div class="background-grid"></div>
+
+    <div class="background-noise"></div>
+
+    <div class="glow glow-purple"></div>
+
+    <div class="glow glow-blue"></div>
+
+    <div class="glow glow-pink"></div>
+
+</div>
+
 
 <!-- =====================================================
-     HERO
-===================================================== -->
+     NAVIGATION
+====================================================== -->
 
-<header class="hero">
+<header
+    class="navbar"
+    id="navbar"
+>
 
-    <div>
-
-        <div class="hero-badge">
-
-            🌙 POWERING DISCORD COMMUNITIES
-
-        </div>
+    <div class="nav-inner">
 
 
-        <h1>
+        <!-- BRAND -->
 
-            Meet
-            <span>Lyra</span>
+        <a
+            href="#home"
+            class="brand"
+            aria-label="Lyra Home"
+        >
 
-        </h1>
+            <div class="brand-logo">
+
+                <span>
+                    🌙
+                </span>
+
+            </div>
+
+            <div class="brand-info">
+
+                <strong>
+                    Lyra
+                </strong>
+
+                <small>
+                    DISCORD BOT
+                </small>
+
+            </div>
+
+        </a>
 
 
-        <p>
+        <!-- DESKTOP NAV -->
 
-            A powerful Discord bot built to make your
-            community easier to manage, more interactive,
-            and more fun.
+        <nav
+            class="desktop-nav"
+            aria-label="Main navigation"
+        >
 
-            From advanced ticket systems and moderation
-            tools to economy, logging, music and utility
-            commands — Lyra has your server covered.
+            <a
+                href="#home"
+                class="nav-link active"
+            >
+                Home
+            </a>
 
-        </p>
+            <a
+                href="#features"
+                class="nav-link"
+            >
+                Features
+            </a>
+
+            <a
+                href="#commands"
+                class="nav-link"
+            >
+                Commands
+            </a>
+
+            <a
+                href="#about"
+                class="nav-link"
+            >
+                About
+            </a>
+
+            <a
+                href="#faq"
+                class="nav-link"
+            >
+                FAQ
+            </a>
+
+        </nav>
 
 
-        <div class="buttons">
+        <!-- NAV ACTIONS -->
+
+        <div class="nav-actions">
 
             <a
                 href="https://discord.com/oauth2/authorize?client_id=1535562865610850314&permissions=8&scope=bot%20applications.commands"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="primary"
+                class="nav-invite"
             >
-                🤖 Invite Lyra
+
+                <span>
+                    Invite
+                </span>
+
+                <span class="arrow">
+                    ↗
+                </span>
+
             </a>
 
 
-            <a
-                href="#features"
-                class="secondary"
+            <button
+                class="mobile-menu-button"
+                id="mobileMenuButton"
+                aria-label="Open menu"
+                aria-expanded="false"
             >
-                ✨ Explore Features
-            </a>
+
+                <span></span>
+                <span></span>
+                <span></span>
+
+            </button>
 
         </div>
+
+
+    </div>
+
+
+    <!-- MOBILE MENU -->
+
+    <div
+        class="mobile-menu"
+        id="mobileMenu"
+    >
+
+        <a href="#home">
+            Home
+        </a>
+
+        <a href="#features">
+            Features
+        </a>
+
+        <a href="#commands">
+            Commands
+        </a>
+
+        <a href="#about">
+            About
+        </a>
+
+        <a href="#faq">
+            FAQ
+        </a>
+
+        <a
+            href="https://discord.com/oauth2/authorize?client_id=1535562865610850314&permissions=8&scope=bot%20applications.commands"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mobile-invite"
+        >
+            Invite Lyra →
+        </a>
 
     </div>
 
 </header>
 
 
-
 <!-- =====================================================
-     QUICK STATS
-===================================================== -->
+     MAIN
+====================================================== -->
 
-<section>
-
-    <div class="cards">
-
-        <div class="card">
-
-            <h3>
-                ⚡ 25+
-            </h3>
-
-            <p>
-                Commands currently available through Lyra.
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3>
-                🌎 Growing
-            </h3>
-
-            <p>
-                Built for Discord communities of all sizes.
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3>
-                🎫 Tickets
-            </h3>
-
-            <p>
-                Complete ticket management tools for staff.
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3>
-                💜 Lyra
-            </h3>
-
-            <p>
-                One bot for your community's everyday needs.
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
+<main>
 
 
 <!-- =====================================================
-     FEATURES
-===================================================== -->
-
-<section id="features">
-
-    <h2 class="title">
-        ✨ Features
-    </h2>
-
-
-    <p class="section-description">
-
-        Lyra combines useful server-management tools
-        with community features into one Discord bot.
-
-    </p>
-
-
-    <div class="cards">
-
-
-        <div class="card">
-
-            <h3>
-                🎫 Advanced Tickets
-            </h3>
-
-            <p>
-
-                Create professional ticket panels,
-                claim tickets, close tickets, rename
-                channels, add users and remove users.
-
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3>
-                💰 Economy
-            </h3>
-
-            <p>
-
-                Give your members an interactive economy
-                with balances, daily rewards, work,
-                payments and leaderboards.
-
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3>
-                🛡️ Server Tools
-            </h3>
-
-            <p>
-
-                Get useful information about your server,
-                users and the bot with simple commands.
-
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3>
-                📜 Logging
-            </h3>
-
-            <p>
-
-                Configure logging systems so important
-                server activity can be tracked automatically.
-
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3>
-                🔊 Voice & Music
-            </h3>
-
-            <p>
-
-                Let Lyra join voice channels and play
-                sounds for your community.
-
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3>
-                🏅 Badges
-            </h3>
-
-            <p>
-
-                Give users badges and display community
-                achievements through Lyra.
-
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3>
-                ⚙️ Server Setup
-            </h3>
-
-            <p>
-
-                Configure staff and logging systems
-                directly through Discord commands.
-
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3>
-                🚀 Slash Commands
-            </h3>
-
-            <p>
-
-                Lyra uses Discord slash commands to provide
-                a clean and modern experience.
-
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     LOGGED IN DASHBOARD
-===================================================== -->
+     HERO
+====================================================== -->
 
 <section
-    id="dashboard"
-    class="dashboard-section"
+    class="hero"
+    id="home"
 >
 
-    <h2 class="title">
-        👤 Your Lyra Dashboard
-    </h2>
+
+    <div class="hero-orbit orbit-one"></div>
+
+    <div class="hero-orbit orbit-two"></div>
+
+    <div class="hero-container">
 
 
-    <!-- NOT LOGGED IN -->
+        <!-- STATUS -->
 
-    <div
-        id="loginRequired"
-        class="login-required"
-    >
-
-        <div class="login-icon">
-            🔐
-        </div>
-
-
-        <h3>
-            Login to manage your servers
-        </h3>
-
-
-        <p>
-
-            Sign in with Discord to see your profile,
-            view your servers and find the servers where
-            you have permission to invite Lyra.
-
-        </p>
-
-
-        <a
-            href="/auth/discord"
-            class="primary"
+        <div
+            class="status-pill reveal"
+            style="--delay: 0s;"
         >
-            🔵 Login with Discord
-        </a>
 
-    </div>
+            <span class="status-indicator"></span>
 
+            <span>
+                Lyra is online
+            </span>
 
+            <span class="status-separator">
+                •
+            </span>
 
-    <!-- LOGGED IN -->
-
-    <div
-        id="dashboardContent"
-        style="display:none;"
-    >
-
-
-        <!-- PROFILE -->
-
-        <div class="profile-card">
-
-            <img
-                id="profileAvatar"
-                class="profile-avatar"
-                src=""
-                alt="Discord Avatar"
-            >
-
-
-            <div>
-
-                <h2 id="profileName">
-                    Loading...
-                </h2>
-
-
-                <p id="profileUsername">
-                    @loading
-                </p>
-
-
-                <small id="profileId">
-                    Discord ID
-                </small>
-
-            </div>
+            <span class="status-live">
+                24/7
+            </span>
 
         </div>
 
 
-        <br>
+        <!-- MAIN TITLE -->
 
+        <h1
+            class="hero-title reveal"
+            style="--delay: .1s;"
+        >
 
-        <!-- SERVERS -->
+            Your Discord.
 
-        <div id="servers">
+            <br>
 
-            <h2 class="title">
-                🌐 Your Servers
-            </h2>
+            <span class="gradient-text">
+                Smarter with Lyra.
+            </span>
 
+        </h1>
 
-            <p class="section-description">
 
-                These are the Discord servers available
-                to your account. If you are the owner,
-                an administrator, or have Manage Server
-                permissions, you can invite Lyra.
+        <!-- DESCRIPTION -->
 
-            </p>
+        <p
+            class="hero-description reveal"
+            style="--delay: .2s;"
+        >
 
+            Meet Lyra — a powerful Discord bot designed
+            to bring your community everything it needs
+            in one place.
 
-            <div
-                id="serverList"
-                class="server-list"
-            >
+            <br>
 
-                <!-- Servers inserted by JavaScript -->
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     COMMANDS
-===================================================== -->
-
-<section id="commands">
-
-    <h2 class="title">
-        🌙 Commands
-    </h2>
-
-
-    <p class="section-description">
-
-        Lyra currently has 25 commands divided into
-        several categories.
-
-    </p>
-
-
-
-    <!-- DEVELOPER -->
-
-    <h3 class="command-category">
-        🧰 Developer
-    </h3>
-
-
-    <div class="command">
-        /givebadge
-    </div>
-
-
-    <div class="command">
-        /invite
-    </div>
-
-
-    <div class="command">
-        /joinvc
-    </div>
-
-
-    <div class="command">
-        /playsound
-    </div>
-
-
-    <div class="command">
-        /removebadge
-    </div>
-
-
-    <div class="command">
-        /servers
-    </div>
-
-
-
-    <!-- ECONOMY -->
-
-    <h3 class="command-category">
-        💰 Economy
-    </h3>
-
-
-    <div class="command">
-        /balance
-    </div>
-
-
-    <div class="command">
-        /daily
-    </div>
-
-
-    <div class="command">
-        /leaderboard
-    </div>
-
-
-    <div class="command">
-        /pay
-    </div>
-
-
-    <div class="command">
-        /work
-    </div>
-
-
-
-    <!-- GENERAL -->
-
-    <h3 class="command-category">
-        🌐 General
-    </h3>
-
-
-    <div class="command">
-        /badges
-    </div>
-
-
-    <div class="command">
-        /botinfo
-    </div>
-
-
-    <div class="command">
-        /help
-    </div>
-
-
-    <div class="command">
-        /ping
-    </div>
-
-
-    <div class="command">
-        /serverinfo
-    </div>
-
-
-    <div class="command">
-        /whois
-    </div>
-
-
-
-    <!-- SETUP -->
-
-    <h3 class="command-category">
-        ⚙️ Setup
-    </h3>
-
-
-    <div class="command">
-        /logsetup
-    </div>
-
-
-    <div class="command">
-        /staffsetup
-    </div>
-
-
-
-    <!-- TICKETS -->
-
-    <h3 class="command-category">
-        🎫 Tickets
-    </h3>
-
-
-    <div class="command">
-        /adduser
-    </div>
-
-
-    <div class="command">
-        /claim
-    </div>
-
-
-    <div class="command">
-        /close
-    </div>
-
-
-    <div class="command">
-        /removeuser
-    </div>
-
-
-    <div class="command">
-        /rename
-    </div>
-
-
-    <div class="command">
-        /ticketsystemmake
-    </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     HOW IT WORKS
-===================================================== -->
-
-<section>
-
-    <h2 class="title">
-        🚀 How Lyra Works
-    </h2>
-
-
-    <div class="cards">
-
-
-        <div class="card">
-
-            <h3>
-                01. Invite
-            </h3>
-
-            <p>
-
-                Add Lyra to your Discord server with
-                the invite button.
-
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3>
-                02. Configure
-            </h3>
-
-            <p>
-
-                Set up your logging, staff and ticket
-                systems directly inside Discord.
-
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3>
-                03. Build
-            </h3>
-
-            <p>
-
-                Give your members useful tools,
-                economy features and community
-                interaction.
-
-            </p>
-
-        </div>
-
-
-        <div class="card">
-
-            <h3>
-                04. Manage
-            </h3>
-
-            <p>
-
-                Use Lyra to keep your server organized
-                while spending less time managing it.
-
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     FINAL CTA
-===================================================== -->
-
-<section>
-
-    <div class="card final-card">
-
-        <h2>
-            Ready to add Lyra?
-        </h2>
-
-
-        <p>
-
-            Bring powerful tools, tickets, economy,
-            moderation utilities and more to your
-            Discord community.
+            <span>
+                Tickets. Economy. Voice. Badges. Utilities.
+                And much more.
+            </span>
 
         </p>
 
 
-        <div class="buttons">
+        <!-- BUTTONS -->
+
+        <div
+            class="hero-buttons reveal"
+            style="--delay: .3s;"
+        >
 
             <a
                 href="https://discord.com/oauth2/authorize?client_id=1535562865610850314&permissions=8&scope=bot%20applications.commands"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="primary"
+                class="button button-primary"
             >
-                🤖 Invite Lyra
+
+                <span class="button-icon">
+                    ✨
+                </span>
+
+                <span>
+                    Invite Lyra
+                </span>
+
+                <span class="button-arrow">
+                    →
+                </span>
+
             </a>
 
 
             <a
-                href="/auth/discord"
-                class="secondary"
+                href="#commands"
+                class="button button-secondary"
             >
-                🔵 Login
+
+                <span>
+                    Explore Commands
+                </span>
+
+                <span>
+                    ↓
+                </span>
+
             </a>
 
         </div>
+
+
+        <!-- HERO STATS -->
+
+        <div
+            class="hero-stats reveal"
+            style="--delay: .4s;"
+        >
+
+
+            <div class="hero-stat">
+
+                <strong>
+                    25
+                </strong>
+
+                <span>
+                    Commands
+                </span>
+
+            </div>
+
+
+            <div class="hero-stat-divider"></div>
+
+
+            <div class="hero-stat">
+
+                <strong>
+                    17+
+                </strong>
+
+                <span>
+                    Servers
+                </span>
+
+            </div>
+
+
+            <div class="hero-stat-divider"></div>
+
+
+            <div class="hero-stat">
+
+                <strong>
+                    5
+                </strong>
+
+                <span>
+                    Categories
+                </span>
+
+            </div>
+
+
+            <div class="hero-stat-divider"></div>
+
+
+            <div class="hero-stat">
+
+                <strong>
+                    24/7
+                </strong>
+
+                <span>
+                    Online
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+    <!-- FLOATING CARDS -->
+
+
+    <div class="floating-card floating-card-left">
+
+        <div class="floating-icon purple">
+            🎫
+        </div>
+
+        <div>
+
+            <strong>
+                Tickets
+            </strong>
+
+            <span>
+                Support made easy
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="floating-card floating-card-right">
+
+        <div class="floating-icon green">
+            💰
+        </div>
+
+        <div>
+
+            <strong>
+                Economy
+            </strong>
+
+            <span>
+                Keep members active
+            </span>
+
+        </div>
+
+    </div>
+
+
+</section>
+
+
+<!-- =====================================================
+     SOCIAL PROOF BAR
+====================================================== -->
+
+<section class="proof-bar">
+
+    <div class="proof-inner">
+
+
+        <div class="proof-item">
+
+            <span class="proof-icon">
+                ⚡
+            </span>
+
+            <div>
+
+                <strong>
+                    Fast
+                </strong>
+
+                <span>
+                    Built for responsiveness
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="proof-item">
+
+            <span class="proof-icon">
+                🧩
+            </span>
+
+            <div>
+
+                <strong>
+                    25+ Commands
+                </strong>
+
+                <span>
+                    Multiple useful systems
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="proof-item">
+
+            <span class="proof-icon">
+                🌙
+            </span>
+
+            <div>
+
+                <strong>
+                    Lyra
+                </strong>
+
+                <span>
+                    One bot. Many possibilities.
+                </span>
+
+            </div>
+
+        </div>
+
 
     </div>
 
 </section>
 
 
+<!-- =====================================================
+     FEATURES
+====================================================== -->
+
+<section
+    class="section"
+    id="features"
+>
+
+
+    <div class="section-header">
+
+
+        <div class="eyebrow">
+            <span></span>
+            FEATURES
+            <span></span>
+        </div>
+
+
+        <h2>
+            Everything your
+            <span class="gradient-text">
+                server needs.
+            </span>
+        </h2>
+
+
+        <p>
+            Lyra brings together powerful community
+            systems so you can spend less time managing
+            your server and more time building it.
+        </p>
+
+
+    </div>
+
+
+    <div class="feature-grid">
+
+
+        <!-- TICKETS -->
+
+        <article
+            class="feature-card feature-large"
+        >
+
+            <div class="feature-card-top">
+
+                <div class="feature-icon purple">
+                    🎫
+                </div>
+
+                <span class="feature-number">
+                    01
+                </span>
+
+            </div>
+
+
+            <h3>
+                Advanced Ticket System
+            </h3>
+
+
+            <p>
+                Give your community an organized way
+                to contact your staff. Create ticket
+                panels and manage tickets with simple
+                commands.
+            </p>
+
+
+            <div class="feature-list">
+
+                <span>
+                    ✓ Ticket panels
+                </span>
+
+                <span>
+                    ✓ Claim tickets
+                </span>
+
+                <span>
+                    ✓ Add & remove users
+                </span>
+
+                <span>
+                    ✓ Rename tickets
+                </span>
+
+            </div>
+
+
+            <div class="feature-decoration">
+                🎫
+            </div>
+
+        </article>
+
+
+        <!-- ECONOMY -->
+
+        <article class="feature-card">
+
+            <div class="feature-card-top">
+
+                <div class="feature-icon green">
+                    💰
+                </div>
+
+                <span class="feature-number">
+                    02
+                </span>
+
+            </div>
+
+
+            <h3>
+                Economy
+            </h3>
+
+
+            <p>
+                Turn your community into an active,
+                rewarding experience with a complete
+                economy system.
+            </p>
+
+
+            <div class="mini-tags">
+
+                <span>
+                    Balance
+                </span>
+
+                <span>
+                    Daily
+                </span>
+
+                <span>
+                    Work
+                </span>
+
+                <span>
+                    Pay
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <!-- VOICE -->
+
+        <article class="feature-card">
+
+            <div class="feature-card-top">
+
+                <div class="feature-icon blue">
+                    🔊
+                </div>
+
+                <span class="feature-number">
+                    03
+                </span>
+
+            </div>
+
+
+            <h3>
+                Voice
+            </h3>
+
+
+            <p>
+                Bring Lyra into voice channels and
+                use voice features and sound commands
+                with your community.
+            </p>
+
+
+            <div class="mini-tags">
+
+                <span>
+                    Join VC
+                </span>
+
+                <span>
+                    Sounds
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <!-- BADGES -->
+
+        <article class="feature-card">
+
+            <div class="feature-card-top">
+
+                <div class="feature-icon orange">
+                    🏆
+                </div>
+
+                <span class="feature-number">
+                    04
+                </span>
+
+            </div>
+
+
+            <h3>
+                Badges
+            </h3>
+
+
+            <p>
+                Reward and recognize members with
+                Lyra's badge system.
+            </p>
+
+
+            <div class="mini-tags">
+
+                <span>
+                    Give
+                </span>
+
+                <span>
+                    Remove
+                </span>
+
+                <span>
+                    View
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <!-- LOGGING -->
+
+        <article class="feature-card">
+
+            <div class="feature-card-top">
+
+                <div class="feature-icon red">
+                    📜
+                </div>
+
+                <span class="feature-number">
+                    05
+                </span>
+
+            </div>
+
+
+            <h3>
+                Server Logging
+            </h3>
+
+
+            <p>
+                Configure logging systems to keep
+                important server activity organized.
+            </p>
+
+
+            <div class="mini-tags">
+
+                <span>
+                    Log Setup
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <!-- SERVER -->
+
+        <article class="feature-card">
+
+            <div class="feature-card-top">
+
+                <div class="feature-icon pink">
+                    ⚙️
+                </div>
+
+                <span class="feature-number">
+                    06
+                </span>
+
+            </div>
+
+
+            <h3>
+                Server Utilities
+            </h3>
+
+
+            <p>
+                Quickly access useful information
+                about your users, server and bot.
+            </p>
+
+
+            <div class="mini-tags">
+
+                <span>
+                    Server Info
+                </span>
+
+                <span>
+                    Whois
+                </span>
+
+                <span>
+                    Bot Info
+                </span>
+
+            </div>
+
+        </article>
+
+
+    </div>
+
+
+</section>
+
+
+<!-- =====================================================
+     SHOWCASE
+====================================================== -->
+
+<section class="showcase-section">
+
+
+    <div class="showcase-container">
+
+
+        <div class="showcase-content">
+
+
+            <div class="eyebrow left">
+                POWERFUL & SIMPLE
+            </div>
+
+
+            <h2>
+                One bot.
+
+                <br>
+
+                <span class="gradient-text">
+                    Endless possibilities.
+                </span>
+            </h2>
+
+
+            <p>
+                You shouldn't need ten different bots
+                just to run one Discord server.
+                Lyra brings your essential tools together
+                into one clean experience.
+            </p>
+
+
+            <div class="check-list">
+
+
+                <div>
+                    <span>✓</span>
+                    Easy slash commands
+                </div>
+
+
+                <div>
+                    <span>✓</span>
+                    Community-focused features
+                </div>
+
+
+                <div>
+                    <span>✓</span>
+                    Ticket management
+                </div>
+
+
+                <div>
+                    <span>✓</span>
+                    Economy systems
+                </div>
+
+
+                <div>
+                    <span>✓</span>
+                    Voice functionality
+                </div>
+
+
+                <div>
+                    <span>✓</span>
+                    Server utilities
+                </div>
+
+
+            </div>
+
+
+            <a
+                href="https://discord.com/oauth2/authorize?client_id=1535562865610850314&permissions=8&scope=bot%20applications.commands"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="button button-primary"
+            >
+
+                Add Lyra
+
+                <span>
+                    →
+                </span>
+
+            </a>
+
+
+        </div>
+
+
+        <div class="showcase-visual">
+
+
+            <div class="discord-window">
+
+
+                <div class="discord-topbar">
+
+                    <span>
+                        # general
+                    </span>
+
+                    <div class="discord-actions">
+
+                        <span>○</span>
+                        <span>○</span>
+                        <span>○</span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="discord-message">
+
+
+                    <div class="discord-avatar">
+                        🌙
+                    </div>
+
+
+                    <div class="discord-message-content">
+
+
+                        <div class="discord-name">
+
+                            Lyra
+
+                            <span>
+                                BOT
+                            </span>
+
+                        </div>
+
+
+                        <div class="discord-text">
+
+                            Hey! I'm Lyra. 🌙
+
+                            <br><br>
+
+                            I'm ready to help your server.
+
+                        </div>
+
+
+                        <div class="discord-command-box">
+
+                            <span class="command-symbol">
+                                /
+                            </span>
+
+                            <strong>
+                                help
+                            </strong>
+
+                            <span class="command-description">
+                                View all commands
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="discord-message small-message">
+
+                    <div class="user-avatar">
+                        U
+                    </div>
+
+                    <div>
+
+                        <div class="user-name">
+                            Member
+                        </div>
+
+                        <div class="discord-text">
+                            This bot is actually awesome.
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="discord-message">
+
+                    <div class="discord-avatar">
+                        🌙
+                    </div>
+
+
+                    <div class="discord-message-content">
+
+
+                        <div class="discord-name">
+
+                            Lyra
+
+                            <span>
+                                BOT
+                            </span>
+
+                        </div>
+
+
+                        <div class="discord-embed">
+
+
+                            <div class="embed-line"></div>
+
+
+                            <strong>
+                                ✨ Lyra Commands
+                            </strong>
+
+
+                            <p>
+                                Tickets • Economy • Voice
+                                • Utilities
+                            </p>
+
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+<!-- =====================================================
+     COMMANDS
+====================================================== -->
+
+<section
+    class="section commands-section"
+    id="commands"
+>
+
+
+    <div class="section-header">
+
+
+        <div class="eyebrow">
+
+            <span></span>
+
+            COMMANDS
+
+            <span></span>
+
+        </div>
+
+
+        <h2>
+            Explore
+            <span class="gradient-text">
+                Lyra's commands.
+            </span>
+        </h2>
+
+
+        <p>
+            Browse all currently available Lyra commands.
+            Use the search box to find exactly what you need.
+        </p>
+
+
+    </div>
+
+
+    <!-- SEARCH -->
+
+    <div class="command-search-container">
+
+
+        <div class="command-search">
+
+            <span>
+                🔎
+            </span>
+
+            <input
+                type="text"
+                id="commandSearch"
+                placeholder="Search commands..."
+                autocomplete="off"
+            >
+
+        </div>
+
+
+        <div class="command-count">
+
+            <strong id="commandCount">
+                25
+            </strong>
+
+            commands
+
+        </div>
+
+
+    </div>
+
+
+    <!-- FILTERS -->
+
+    <div
+        class="command-filters"
+        id="commandFilters"
+    >
+
+        <button
+            class="filter-button active"
+            data-filter="all"
+        >
+            All
+        </button>
+
+        <button
+            class="filter-button"
+            data-filter="developer"
+        >
+            🛠 Developer
+        </button>
+
+        <button
+            class="filter-button"
+            data-filter="economy"
+        >
+            💰 Economy
+        </button>
+
+        <button
+            class="filter-button"
+            data-filter="general"
+        >
+            🌐 General
+        </button>
+
+        <button
+            class="filter-button"
+            data-filter="setup"
+        >
+            ⚙️ Setup
+        </button>
+
+        <button
+            class="filter-button"
+            data-filter="tickets"
+        >
+            🎫 Tickets
+        </button>
+
+    </div>
+
+
+    <!-- COMMAND GRID -->
+
+    <div
+        class="all-commands"
+        id="allCommands"
+    >
+
+
+        <!-- DEVELOPER -->
+
+
+        <article
+            class="command-card"
+            data-category="developer"
+            data-command="givebadge"
+        >
+
+            <div class="command-icon">
+                🏆
+            </div>
+
+            <div class="command-info">
+
+                <code>
+                    /givebadge
+                </code>
+
+                <p>
+                    Give a badge to a user.
+                </p>
+
+                <span class="command-category-label">
+                    Developer
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <article
+            class="command-card"
+            data-category="developer"
+            data-command="invite"
+        >
+
+            <div class="command-icon">
+                🔗
+            </div>
+
+            <div class="command-info">
+
+                <code>
+                    /invite
+                </code>
+
+                <p>
+                    Generate or manage a bot invite.
+                </p>
+
+                <span class="command-category-label">
+                    Developer
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <article
+            class="command-card"
+            data-category="developer"
+            data-command="joinvc"
+        >
+
+            <div class="command-icon">
+                🔊
+            </div>
+
+            <div class="command-info">
+
+                <code>
+                    /joinvc
+                </code>
+
+                <p>
+                    Join a voice channel.
+                </p>
+
+                <span class="command-category-label">
+                    Developer
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <article
+            class="command-card"
+            data-category="developer"
+            data-command="playsound"
+        >
+
+            <div class="command-icon">
+                🎵
+            </div>
+
+            <div class="command-info">
+
+                <code>
+                    /playsound
+                </code>
+
+                <p>
+                    Play a sound in a voice channel.
+                </p>
+
+                <span class="command-category-label">
+                    Developer
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <article
+            class="command-card"
+            data-category="developer"
+            data-command="removebadge"
+        >
+
+            <div class="command-icon">
+                🏅
+            </div>
+
+            <div class="command-info">
+
+                <code>
+                    /removebadge
+                </code>
+
+                <p>
+                    Remove a badge from a user.
+                </p>
+
+                <span class="command-category-label">
+                    Developer
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <article
+            class="command-card"
+            data-category="developer"
+            data-command="servers"
+        >
+
+            <div class="command-icon">
+                🌐
+            </div>
+
+            <div class="command-info">
+
+                <code>
+                    /servers
+                </code>
+
+                <p>
+                    View servers Lyra is connected to.
+                </p>
+
+                <span class="command-category-label">
+                    Developer
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <!-- ECONOMY -->
+
+
+        <article
+            class="command-card"
+            data-category="economy"
+            data-command="balance"
+        >
+
+            <div class="command-icon">
+                💵
+            </div>
+
+            <div class="command-info">
+
+                <code>
+                    /balance
+                </code>
+
+                <p>
+                    Check your current balance.
+                </p>
+
+                <span class="command-category-label">
+                    Economy
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <article
+            class="command-card"
+            data-category="economy"
+            data-command="daily"
+        >
+
+            <div class="command-icon">
+                🎁
+            </div>
+
+            <div class="command-info">
+
+                <code>
+                    /daily
+                </code>
+
+                <p>
+                    Collect your daily reward.
+                </p>
+
+                <span class="command-category-label">
+                    Economy
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <article
+            class="command-card"
+            data-category="economy"
+            data-command="leaderboard"
+        >
+
+            <div class="command-icon">
+                🏆
+            </div>
+
+            <div class="command-info">
+
+                <code>
+                    /leaderboard
+                </code>
+
+                <p>
+                    View the economy leaderboard.
+                </p>
+
+                <span class="command-category-label">
+                    Economy
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <article
+            class="command-card"
+            data-category="economy"
+            data-command="pay"
+        >
+
+            <div class="command-icon">
+                💸
+            </div>
+
+            <div class="command-info">
+
+                <code>
+                    /pay
+                </code>
+
+                <p>
+                    Pay another member.
+                </p>
+
+                <span class="command-category-label">
+                    Economy
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <article
+            class="command-card"
+            data-category="economy"
+            data-command="work"
+        >
+
+            <div class="command-icon">
+                💼
+            </div>
+
+            <div class="command-info">
+
+                <code>
+                    /work
+                </code>
+
+                <p>
+                    Work to earn economy currency.
+                </p>
+
+                <span class="command-category-label">
+                    Economy
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <!-- GENERAL -->
+
+
+        <article
+            class="command-card"
+            data-category="general"
+            data-command="badges"
+        >
+
+            <div class="command-icon">
+                🏅
+            </div>
+
+            <div class="command-info">
+
+                <code>
+                    /badges
+                </code>
+
+                <p>
+                    View available badges.
+                </p>
+
+                <span class="command-category-label">
+                    General
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <article
+            class="command-card"
+            data-category="general"
+            data-command="botinfo"
+        >
+
+            <div class="command-icon">
+                🤖
+            </div>
+
+            <div class="command-info">
+
+                <code>
+                    /botinfo
+                </code>
+
+                <p>
+                    View information about Lyra.
+                </p>
+
+                <span class="command-category-label">
+                    General
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <article
+            class="command-card"
+            data-category="general"
+            data-command="help"
+        >
+
+            <div class="command-icon">
+                ❓
+            </div>
+
+            <div class="command-info">
+
+                <code>
+                    /help
+                </code>
+
+                <p>
+                    View the command list.
+                </p>
+
+                <span class="command-category-label">
+                    General
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <article
+            class="command-card"
+            data-category="general"
+            data-command="ping"
+        >
+
+            <div class="command-icon">
+                🏓
+            </div>
+
+            <div class="command-info">
+
+                <code>
+                    /ping
+                </code>
+
+                <p>
+                    Check Lyra's latency.
+                </p>
+
+                <span class="command-category-label">
+                    General
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <article
+            class="command-card"
+            data-category="general"
+            data-command="serverinfo"
+        >
+
+            <div class="command-icon">
+                🏠
+            </div>
+
+            <div class="command-info">
+
+                <code>
+                    /serverinfo
+                </code>
+
+                <p>
+                    View server information.
+                </p>
+
+                <span class="command-category-label">
+                    General
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <article
+            class="command-card"
+            data-category="general"
+            data-command="whois"
+        >
+
+            <div class="command-icon">
+                👤
+            </div>
+
+            <div class="command-info">
+
+                <code>
+                    /whois
+                </code>
+
+                <p>
+                    View information about a user.
+                </p>
+
+                <span class="command-category-label">
+                    General
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <!-- SETUP -->
+
+
+        <article
+            class="command-card"
+            data-category="setup"
+            data-command="logsetup"
+        >
+
+            <div class="command-icon">
+                📜
+            </div>
+
+            <div class="command-info">
+
+                <code>
+                    /logsetup
+                </code>
+
+                <p>
+                    Configure server logging.
+                </p>
+
+                <span class="command-category-label">
+                    Setup
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <article
+            class="command-card"
+            data-category="setup"
+            data-command="staffsetup"
+        >
+
+            <div class="command-icon">
+                🛡️
+            </div>
+
+            <div class="command-info">
+
+                <code>
+                    /staffsetup
+                </code>
+
+                <p>
+                    Configure staff features.
+                </p>
+
+                <span class="command-category-label">
+                    Setup
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <!-- TICKETS -->
+
+
+        <article
+            class="command-card"
+            data-category="tickets"
+            data-command="adduser"
+        >
+
+            <div class="command-icon">
+                ➕
+            </div>
+
+            <div class="command-info">
+
+                <code>
+                    /adduser
+                </code>
+
+                <p>
+                    Add a user to a ticket.
+                </p>
+
+                <span class="command-category-label">
+                    Tickets
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <article
+            class="command-card"
+            data-category="tickets"
+            data-command="claim"
+        >
+
+            <div class="command-icon">
+                🙋
+            </div>
+
+            <div class="command-info">
+
+                <code>
+                    /claim
+                </code>
+
+                <p>
+                    Claim a support ticket.
+                </p>
+
+                <span class="command-category-label">
+                    Tickets
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <article
+            class="command-card"
+            data-category="tickets"
+            data-command="close"
+        >
+
+            <div class="command-icon">
+                🔒
+            </div>
+
+            <div class="command-info">
+
+                <code>
+                    /close
+                </code>
+
+                <p>
+                    Close the current ticket.
+                </p>
+
+                <span class="command-category-label">
+                    Tickets
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <article
+            class="command-card"
+            data-category="tickets"
+            data-command="removeuser"
+        >
+
+            <div class="command-icon">
+                ➖
+            </div>
+
+            <div class="command-info">
+
+                <code>
+                    /removeuser
+                </code>
+
+                <p>
+                    Remove a user from a ticket.
+                </p>
+
+                <span class="command-category-label">
+                    Tickets
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <article
+            class="command-card"
+            data-category="tickets"
+            data-command="rename"
+        >
+
+            <div class="command-icon">
+                ✏️
+            </div>
+
+            <div class="command-info">
+
+                <code>
+                    /rename
+                </code>
+
+                <p>
+                    Rename the current ticket.
+                </p>
+
+                <span class="command-category-label">
+                    Tickets
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <article
+            class="command-card"
+            data-category="tickets"
+            data-command="ticketsystemmake"
+        >
+
+            <div class="command-icon">
+                🎫
+            </div>
+
+            <div class="command-info">
+
+                <code>
+                    /ticketsystemmake
+                </code>
+
+                <p>
+                    Create a ticket system.
+                </p>
+
+                <span class="command-category-label">
+                    Tickets
+                </span>
+
+            </div>
+
+        </article>
+
+
+    </div>
+
+
+    <!-- NO RESULTS -->
+
+    <div
+        class="no-results"
+        id="noResults"
+    >
+
+        <div>
+            🔎
+        </div>
+
+        <h3>
+            No commands found
+        </h3>
+
+        <p>
+            Try searching for another command.
+        </p>
+
+    </div>
+
+
+</section>
+
+
+<!-- =====================================================
+     STATS
+====================================================== -->
+
+<section class="stats-section">
+
+
+    <div class="stats-container">
+
+
+        <div class="stats-heading">
+
+            <span class="eyebrow">
+                LYRA BY THE NUMBERS
+            </span>
+
+            <h2>
+                Built to
+                <span class="gradient-text">
+                    scale.
+                </span>
+            </h2>
+
+        </div>
+
+
+        <div class="stats-grid">
+
+
+            <div class="big-stat">
+
+                <strong>
+                    25
+                </strong>
+
+                <span>
+                    Commands loaded
+                </span>
+
+            </div>
+
+
+            <div class="big-stat">
+
+                <strong>
+                    17+
+                </strong>
+
+                <span>
+                    Discord servers
+                </span>
+
+            </div>
+
+
+            <div class="big-stat">
+
+                <strong>
+                    5
+                </strong>
+
+                <span>
+                    Command categories
+                </span>
+
+            </div>
+
+
+            <div class="big-stat">
+
+                <strong>
+                    5
+                </strong>
+
+                <span>
+                    Active event systems
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+<!-- =====================================================
+     ABOUT
+====================================================== -->
+
+<section
+    class="section about-section"
+    id="about"
+>
+
+
+    <div class="about-grid">
+
+
+        <div class="about-content">
+
+
+            <div class="eyebrow left">
+                ABOUT LYRA
+            </div>
+
+
+            <h2>
+                Built with your
+                <span class="gradient-text">
+                    community
+                </span>
+                in mind.
+            </h2>
+
+
+            <p>
+                Lyra is designed around the idea that
+                Discord communities should have powerful
+                tools without a complicated experience.
+            </p>
+
+
+            <p>
+                Whether you're running a small community
+                or a growing server, Lyra gives you useful
+                systems for support, engagement,
+                information and entertainment.
+            </p>
+
+
+            <div class="about-points">
+
+
+                <div>
+
+                    <span class="point-icon">
+                        ✓
+                    </span>
+
+                    <div>
+
+                        <strong>
+                            Easy to use
+                        </strong>
+
+                        <p>
+                            Simple slash commands make
+                            Lyra accessible to everyone.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div>
+
+                    <span class="point-icon">
+                        ✓
+                    </span>
+
+                    <div>
+
+                        <strong>
+                            Community focused
+                        </strong>
+
+                        <p>
+                            Features designed around
+                            real Discord communities.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div>
+
+                    <span class="point-icon">
+                        ✓
+                    </span>
+
+                    <div>
+
+                        <strong>
+                            Always evolving
+                        </strong>
+
+                        <p>
+                            New features and improvements
+                            can continue to expand Lyra.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+        <div class="about-card-wrapper">
+
+
+            <div class="lyra-profile-card">
+
+
+                <div class="profile-card-glow"></div>
+
+
+                <div class="profile-top">
+
+
+                    <div class="profile-avatar">
+
+                        🌙
+
+                        <span class="profile-online"></span>
+
+                    </div>
+
+
+                    <div class="profile-name">
+
+                        <strong>
+                            Lyra
+                        </strong>
+
+                        <span>
+                            BOT
+                        </span>
+
+                        <small>
+                            Discord Bot
+                        </small>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="profile-divider"></div>
+
+
+                <div class="profile-status-row">
+
+                    <span>
+                        STATUS
+                    </span>
+
+                    <strong>
+                        <i></i>
+                        Online
+                    </strong>
+
+                </div>
+
+
+                <div class="profile-status-row">
+
+                    <span>
+                        COMMANDS
+                    </span>
+
+                    <strong>
+                        25
+                    </strong>
+
+                </div>
+
+
+                <div class="profile-status-row">
+
+                    <span>
+                        SERVERS
+                    </span>
+
+                    <strong>
+                        17+
+                    </strong>
+
+                </div>
+
+
+                <div class="profile-status-row">
+
+                    <span>
+                        CATEGORY
+                    </span>
+
+                    <strong>
+                        Community
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+<!-- =====================================================
+     FAQ
+====================================================== -->
+
+<section
+    class="section faq-section"
+    id="faq"
+>
+
+
+    <div class="section-header">
+
+
+        <div class="eyebrow">
+
+            <span></span>
+
+            FAQ
+
+            <span></span>
+
+        </div>
+
+
+        <h2>
+            Frequently asked
+            <span class="gradient-text">
+                questions.
+            </span>
+        </h2>
+
+
+        <p>
+            A few quick answers about Lyra.
+        </p>
+
+
+    </div>
+
+
+    <div class="faq-container">
+
+
+        <div class="faq-item">
+
+            <button
+                class="faq-question"
+                type="button"
+            >
+
+                <span>
+                    What is Lyra?
+                </span>
+
+                <span class="faq-plus">
+                    +
+                </span>
+
+            </button>
+
+
+            <div class="faq-answer">
+
+                <p>
+                    Lyra is a Discord bot built with
+                    community-focused features including
+                    tickets, economy, voice tools,
+                    badges and server utilities.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="faq-item">
+
+            <button
+                class="faq-question"
+                type="button"
+            >
+
+                <span>
+                    How do I add Lyra?
+                </span>
+
+                <span class="faq-plus">
+                    +
+                </span>
+
+            </button>
+
+
+            <div class="faq-answer">
+
+                <p>
+                    Click any "Invite Lyra" button on this
+                    website and authorize Lyra for your
+                    Discord server.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="faq-item">
+
+            <button
+                class="faq-question"
+                type="button"
+            >
+
+                <span>
+                    How many commands does Lyra have?
+                </span>
+
+                <span class="faq-plus">
+                    +
+                </span>
+
+            </button>
+
+
+            <div class="faq-answer">
+
+                <p>
+                    Lyra currently has 25 loaded commands
+                    across developer, economy, general,
+                    setup and ticket categories.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="faq-item">
+
+            <button
+                class="faq-question"
+                type="button"
+            >
+
+                <span>
+                    Does Lyra have a ticket system?
+                </span>
+
+                <span class="faq-plus">
+                    +
+                </span>
+
+            </button>
+
+
+            <div class="faq-answer">
+
+                <p>
+                    Yes. Lyra includes commands for creating
+                    ticket systems, claiming tickets,
+                    closing tickets, adding users,
+                    removing users and renaming tickets.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="faq-item">
+
+            <button
+                class="faq-question"
+                type="button"
+            >
+
+                <span>
+                    Does Lyra have an economy?
+                </span>
+
+                <span class="faq-plus">
+                    +
+                </span>
+
+            </button>
+
+
+            <div class="faq-answer">
+
+                <p>
+                    Yes. Members can use balance, daily,
+                    leaderboard, pay and work commands
+                    through Lyra's economy system.
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+<!-- =====================================================
+     CTA
+====================================================== -->
+
+<section class="cta-section">
+
+
+    <div class="cta-background-glow"></div>
+
+
+    <div class="cta-content">
+
+
+        <div class="cta-logo">
+            🌙
+        </div>
+
+
+        <div class="eyebrow">
+            READY TO GET STARTED?
+        </div>
+
+
+        <h2>
+            Your server deserves
+            <span class="gradient-text">
+                Lyra.
+            </span>
+        </h2>
+
+
+        <p>
+            Bring powerful tools, community features
+            and a better Discord experience to your server.
+        </p>
+
+
+        <div class="cta-buttons">
+
+
+            <a
+                href="https://discord.com/oauth2/authorize?client_id=1535562865610850314&permissions=8&scope=bot%20applications.commands"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="button button-primary button-large"
+            >
+
+                🌙 Invite Lyra
+
+                <span>
+                    →
+                </span>
+
+            </a>
+
+
+            <a
+                href="#commands"
+                class="button button-secondary button-large"
+            >
+
+                View Commands
+
+                <span>
+                    ↓
+                </span>
+
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+</main>
+
 
 <!-- =====================================================
      FOOTER
-===================================================== -->
+====================================================== -->
 
-<footer>
+<footer class="footer">
 
-    <strong>
-        🌙 Lyra
-    </strong>
 
-    <br>
+    <div class="footer-top">
 
-    Advanced Discord tools for modern communities.
 
-    <br><br>
+        <div class="footer-brand">
 
-    © 2026 Lyra Bot • All rights reserved.
+
+            <a
+                href="#home"
+                class="brand"
+            >
+
+                <div class="brand-logo">
+                    🌙
+                </div>
+
+                <div class="brand-info">
+
+                    <strong>
+                        Lyra
+                    </strong>
+
+                    <small>
+                        DISCORD BOT
+                    </small>
+
+                </div>
+
+            </a>
+
+
+            <p>
+                Powerful tools for better Discord
+                communities.
+            </p>
+
+
+            <div class="footer-status">
+
+                <span class="status-indicator"></span>
+
+                Lyra is online
+
+            </div>
+
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>
+                Website
+            </h4>
+
+            <a href="#home">
+                Home
+            </a>
+
+            <a href="#features">
+                Features
+            </a>
+
+            <a href="#commands">
+                Commands
+            </a>
+
+            <a href="#about">
+                About
+            </a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>
+                Resources
+            </h4>
+
+            <a href="#faq">
+                FAQ
+            </a>
+
+            <a href="#commands">
+                Command List
+            </a>
+
+            <a
+                href="https://discord.com/oauth2/authorize?client_id=1535562865610850314&permissions=8&scope=bot%20applications.commands"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Invite Lyra
+            </a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+            <h4>
+                Systems
+            </h4>
+
+            <a href="#features">
+                Tickets
+            </a>
+
+            <a href="#features">
+                Economy
+            </a>
+
+            <a href="#features">
+                Voice
+            </a>
+
+            <a href="#features">
+                Utilities
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+
+        <div>
+
+            © 2026 Lyra.
+            All rights reserved.
+
+        </div>
+
+
+        <div>
+
+            Built for Discord communities
+            <span>
+                🌙
+            </span>
+
+        </div>
+
+
+    </div>
+
 
 </footer>
 
 
+<!-- =====================================================
+     BACK TO TOP
+====================================================== -->
+
+<button
+    class="back-to-top"
+    id="backToTop"
+    aria-label="Back to top"
+>
+
+    ↑
+
+</button>
+
 
 <!-- =====================================================
      JAVASCRIPT
-===================================================== -->
+====================================================== -->
 
 <script>
 
 
-// =======================================================
-// SETTINGS
-// =======================================================
+/* =====================================================
+   PAGE LOADER
+===================================================== */
 
-function toggleSettings() {
+window.addEventListener(
+    "load",
+    () => {
 
-    const panel =
-        document.getElementById(
-            "settingsPanel"
-        );
+        setTimeout(
+            () => {
 
+                const loader =
+                    document.getElementById(
+                        "pageLoader"
+                    );
 
-    if (
-        panel.style.display === "block"
-    ) {
+                if (loader) {
 
-        panel.style.display =
-            "none";
+                    loader.classList.add(
+                        "hidden"
+                    );
 
-    } else {
+                }
 
-        panel.style.display =
-            "block";
-
-    }
-
-}
-
-
-
-// =======================================================
-// THEME
-// =======================================================
-
-function setTheme(theme) {
-
-    if (
-        theme === "light"
-    ) {
-
-        document.body.classList.add(
-            "light"
-        );
-
-    } else {
-
-        document.body.classList.remove(
-            "light"
+            },
+            500
         );
 
     }
+);
 
 
-    localStorage.setItem(
-        "lyra-theme",
-        theme
+
+/* =====================================================
+   MOBILE MENU
+===================================================== */
+
+const mobileButton =
+    document.getElementById(
+        "mobileMenuButton"
     );
 
-}
 
-
-
-// =======================================================
-// ACCENT COLOR
-// =======================================================
-
-function changeAccent(color) {
-
-    document.documentElement.style
-        .setProperty(
-            "--accent",
-            color
-        );
-
-
-    localStorage.setItem(
-        "lyra-accent",
-        color
+const mobileMenu =
+    document.getElementById(
+        "mobileMenu"
     );
 
-}
 
-
-
-// =======================================================
-// LOAD SAVED SETTINGS
-// =======================================================
-
-function loadSettings() {
-
-    const savedTheme =
-        localStorage.getItem(
-            "lyra-theme"
-        );
-
-
-    const savedAccent =
-        localStorage.getItem(
-            "lyra-accent"
-        );
-
-
-    if (
-        savedTheme
-    ) {
-
-        setTheme(
-            savedTheme
-        );
-
-    }
-
-
-    if (
-        savedAccent
-    ) {
-
-        changeAccent(
-            savedAccent
-        );
-
-
-        const picker =
-            document.getElementById(
-                "colorPicker"
-            );
-
-
-        if (picker) {
-
-            picker.value =
-                savedAccent;
-
-        }
-
-    }
-
-}
-
-
-
-// =======================================================
-// ESCAPE HTML
-// =======================================================
-
-function escapeHTML(
-    value
+if (
+    mobileButton &&
+    mobileMenu
 ) {
 
-    if (
-        value === null ||
-        value === undefined
-    ) {
-
-        return "";
-
-    }
-
-
-    return String(value)
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-        .replace(
-            /</g,
-            "&lt;"
-        )
-        .replace(
-            />/g,
-            "&gt;"
-        )
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-        .replace(
-            /'/g,
-            "&#039;"
-        );
-
-}
-
-
-
-// =======================================================
-// CREATE SERVER CARD
-// =======================================================
-
-function createServerCard(
-    server
-) {
-
-    const card =
-        document.createElement(
-            "div"
-        );
-
-
-    card.className =
-        "server-card";
-
-
-    // ---------------------------------------------------
-    // SERVER ICON
-    // ---------------------------------------------------
-
-    const icon =
-        document.createElement(
-            "img"
-        );
-
-
-    icon.className =
-        "server-icon";
-
-
-    icon.alt =
-        `${server.name} icon`;
-
-
-    if (
-        server.icon
-    ) {
-
-        icon.src =
-            server.icon;
-
-    } else {
-
-        icon.src =
-            "https://cdn.discordapp.com/embed/avatars/0.png";
-
-    }
-
-
-    // ---------------------------------------------------
-    // SERVER INFO
-    // ---------------------------------------------------
-
-    const info =
-        document.createElement(
-            "div"
-        );
-
-
-    info.className =
-        "server-info";
-
-
-    const name =
-        document.createElement(
-            "h3"
-        );
-
-
-    name.textContent =
-        server.name;
-
-
-    const meta =
-        document.createElement(
-            "div"
-        );
-
-
-    meta.className =
-        "server-meta";
-
-
-    const badge =
-        document.createElement(
-            "span"
-        );
-
-
-    // ---------------------------------------------------
-    // PERMISSION
-    // ---------------------------------------------------
-
-    if (
-        server.permissionType ===
-        "owner"
-    ) {
-
-        badge.className =
-            "server-owner";
-
-        badge.textContent =
-            "👑 Owner";
-
-    }
-
-    else if (
-        server.permissionType ===
-        "administrator"
-    ) {
-
-        badge.className =
-            "server-admin";
-
-        badge.textContent =
-            "🛡 Administrator";
-
-    }
-
-    else if (
-        server.permissionType ===
-        "manager"
-    ) {
-
-        badge.className =
-            "server-manager";
-
-        badge.textContent =
-            "🔧 Manage Server";
-
-    }
-
-    else {
-
-        badge.className =
-            "server-member";
-
-        badge.textContent =
-            "👤 Member";
-
-    }
-
-
-    meta.appendChild(
-        badge
-    );
-
-
-    info.appendChild(
-        name
-    );
-
-
-    info.appendChild(
-        meta
-    );
-
-
-    // ---------------------------------------------------
-    // ACTION
-    // ---------------------------------------------------
-
-    const action =
-        document.createElement(
-            "div"
-        );
-
-
-    action.className =
-        "server-action";
-
-
-    if (
-        server.canInvite &&
-        server.inviteURL
-    ) {
-
-        const invite =
-            document.createElement(
-                "a"
-            );
-
-
-        invite.className =
-            "server-invite";
-
-
-        invite.href =
-            server.inviteURL;
-
-
-        invite.target =
-            "_blank";
-
-
-        invite.rel =
-            "noopener noreferrer";
-
-
-        invite.textContent =
-            "🤖 Invite Lyra";
-
-
-        action.appendChild(
-            invite
-        );
-
-    } else {
-
-        const noPermission =
-            document.createElement(
-                "span"
-            );
-
-
-        noPermission.className =
-            "no-permission";
-
-
-        noPermission.textContent =
-            "🔒 No Permission";
-
-
-        action.appendChild(
-            noPermission
-        );
-
-    }
-
-
-    // ---------------------------------------------------
-    // BUILD
-    // ---------------------------------------------------
-
-    card.appendChild(
-        icon
-    );
-
-
-    card.appendChild(
-        info
-    );
-
-
-    card.appendChild(
-        action
-    );
-
-
-    return card;
-
-}
-
-
-
-// =======================================================
-// LOAD DASHBOARD
-// =======================================================
-
-async function loadDashboard() {
-
-    const loginRequired =
-        document.getElementById(
-            "loginRequired"
-        );
-
-
-    const dashboardContent =
-        document.getElementById(
-            "dashboardContent"
-        );
-
-
-    const authArea =
-        document.getElementById(
-            "authArea"
-        );
-
-
-    try {
-
-        const response =
-            await fetch(
-                "/api/dashboard",
-                {
-
-                    method:
-                        "GET",
-
-                    credentials:
-                        "include",
-
-                    headers: {
-
-                        "Accept":
-                            "application/json"
-
-                    }
-
-                }
-            );
-
-
-        if (
-            !response.ok
-        ) {
-
-            throw new Error(
-                `Dashboard request failed: ${response.status}`
-            );
-
-        }
-
-
-        const data =
-            await response.json();
-
-
-        // =================================================
-        // NOT LOGGED IN
-        // =================================================
-
-        if (
-            !data.loggedIn
-        ) {
-
-            loginRequired.style.display =
-                "block";
-
-
-            dashboardContent.style.display =
-                "none";
-
-
-            authArea.innerHTML = `
-
-                <a
-                    href="/auth/discord"
-                    class="login-button"
-                >
-                    🔵 Login with Discord
-                </a>
-
-            `;
-
-
-            return;
-
-        }
-
-
-        // =================================================
-        // LOGGED IN
-        // =================================================
-
-        loginRequired.style.display =
-            "none";
-
-
-        dashboardContent.style.display =
-            "block";
-
-
-        const user =
-            data.user;
-
-
-        // =================================================
-        // PROFILE
-        // =================================================
-
-        const avatar =
-            document.getElementById(
-                "profileAvatar"
-            );
-
-
-        const profileName =
-            document.getElementById(
-                "profileName"
-            );
-
-
-        const profileUsername =
-            document.getElementById(
-                "profileUsername"
-            );
-
-
-        const profileId =
-            document.getElementById(
-                "profileId"
-            );
-
-
-        avatar.src =
-            user.avatar ||
-            "https://cdn.discordapp.com/embed/avatars/0.png";
-
-
-        avatar.alt =
-            `${user.username}'s Discord avatar`;
-
-
-        profileName.textContent =
-            user.globalName ||
-            user.username;
-
-
-        profileUsername.textContent =
-            `@${user.username}`;
-
-
-        profileId.textContent =
-            `Discord ID: ${user.id}`;
-
-
-        // =================================================
-        // NAV USER
-        // =================================================
-
-        authArea.innerHTML = `
-
-            <div class="user-menu">
-
-                <img
-                    class="nav-avatar"
-                    src="${escapeHTML(
-                        user.avatar ||
-                        "https://cdn.discordapp.com/embed/avatars/0.png"
-                    )}"
-                    alt="Avatar"
-                >
-
-                <span>
-                    ${escapeHTML(
-                        user.globalName ||
-                        user.username
-                    )}
-                </span>
-
-                <a
-                    href="/auth/logout"
-                    class="logout-button"
-                >
-                    Logout
-                </a>
-
-            </div>
-
-        `;
-
-
-        // =================================================
-        // SERVERS
-        // =================================================
-
-        const serverList =
-            document.getElementById(
-                "serverList"
-            );
-
-
-        serverList.innerHTML =
-            "";
-
-
-        const guilds =
-            Array.isArray(
-                data.guilds
-            )
-                ? data.guilds
-                : [];
-
-
-        if (
-            guilds.length === 0
-        ) {
-
-            serverList.innerHTML = `
-
-                <div class="login-required">
-
-                    <div class="login-icon">
-                        🌐
-                    </div>
-
-                    <h3>
-                        No servers found
-                    </h3>
-
-                    <p>
-                        Discord didn't return any servers
-                        for this account.
-                    </p>
-
-                </div>
-
-            `;
-
-
-            return;
-
-        }
-
-
-        // -------------------------------------------------
-        // SORT SERVERS
-        // -------------------------------------------------
-        //
-        // Servers where the user can invite Lyra
-        // appear first.
-        //
-
-        guilds.sort(
-            (a, b) => {
-
-                if (
-                    a.canInvite &&
-                    !b.canInvite
-                ) {
-
-                    return -1;
-
-                }
-
-
-                if (
-                    !a.canInvite &&
-                    b.canInvite
-                ) {
-
-                    return 1;
-
-                }
-
-
-                return a.name.localeCompare(
-                    b.name
+    mobileButton.addEventListener(
+        "click",
+        () => {
+
+            const isOpen =
+                mobileMenu.classList.toggle(
+                    "open"
                 );
 
-            }
-        );
+            mobileButton.classList.toggle(
+                "open",
+                isOpen
+            );
+
+            mobileButton.setAttribute(
+                "aria-expanded",
+                isOpen
+            );
+
+        }
+    );
 
 
-        // -------------------------------------------------
-        // CREATE CARDS
-        // -------------------------------------------------
+    mobileMenu
+        .querySelectorAll("a")
+        .forEach(link => {
 
-        guilds.forEach(
-            server => {
+            link.addEventListener(
+                "click",
+                () => {
 
-                const card =
-                    createServerCard(
-                        server
+                    mobileMenu.classList.remove(
+                        "open"
+                    );
+
+                    mobileButton.classList.remove(
+                        "open"
+                    );
+
+                    mobileButton.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+                }
+            );
+
+        });
+
+}
+
+
+
+/* =====================================================
+   NAVBAR SCROLL
+===================================================== */
+
+const navbar =
+    document.getElementById(
+        "navbar"
+    );
+
+
+window.addEventListener(
+    "scroll",
+    () => {
+
+        if (!navbar) {
+            return;
+        }
+
+
+        if (
+            window.scrollY > 30
+        ) {
+
+            navbar.classList.add(
+                "scrolled"
+            );
+
+        } else {
+
+            navbar.classList.remove(
+                "scrolled"
+            );
+
+        }
+
+    }
+);
+
+
+
+/* =====================================================
+   SMOOTH SCROLL
+===================================================== */
+
+document
+    .querySelectorAll(
+        'a[href^="#"]'
+    )
+    .forEach(link => {
+
+        link.addEventListener(
+            "click",
+            event => {
+
+                const id =
+                    link.getAttribute(
+                        "href"
                     );
 
 
-                serverList.appendChild(
-                    card
-                );
+                if (
+                    !id ||
+                    id === "#"
+                ) {
+                    return;
+                }
+
+
+                const target =
+                    document.querySelector(
+                        id
+                    );
+
+
+                if (!target) {
+                    return;
+                }
+
+
+                event.preventDefault();
+
+
+                target.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
 
             }
         );
 
-
-    } catch (error) {
-
-        console.error(
-            "❌ Dashboard error:",
-            error
-        );
+    });
 
 
-        loginRequired.style.display =
-            "block";
+
+/* =====================================================
+   COMMAND SEARCH
+===================================================== */
+
+const searchInput =
+    document.getElementById(
+        "commandSearch"
+    );
 
 
-        dashboardContent.style.display =
-            "none";
+const commandCards =
+    document.querySelectorAll(
+        ".command-card"
+    );
+
+
+const commandCount =
+    document.getElementById(
+        "commandCount"
+    );
+
+
+const noResults =
+    document.getElementById(
+        "noResults"
+    );
+
+
+let currentFilter =
+    "all";
+
+
+function updateCommands() {
+
+    const search =
+        searchInput
+            ? searchInput.value
+                .toLowerCase()
+                .trim()
+            : "";
+
+
+    let visible = 0;
+
+
+    commandCards.forEach(
+        card => {
+
+            const category =
+                card.dataset.category
+                || "";
+
+
+            const command =
+                card.dataset.command
+                || "";
+
+
+            const text =
+                card.textContent
+                    .toLowerCase();
+
+
+            const matchesSearch =
+                !search ||
+                command.includes(search) ||
+                text.includes(search);
+
+
+            const matchesFilter =
+                currentFilter === "all" ||
+                category === currentFilter;
+
+
+            if (
+                matchesSearch &&
+                matchesFilter
+            ) {
+
+                card.style.display =
+                    "flex";
+
+                visible++;
+
+            } else {
+
+                card.style.display =
+                    "none";
+
+            }
+
+        }
+    );
+
+
+    if (commandCount) {
+
+        commandCount.textContent =
+            visible;
+
+    }
+
+
+    if (noResults) {
+
+        if (visible === 0) {
+
+            noResults.classList.add(
+                "show"
+            );
+
+        } else {
+
+            noResults.classList.remove(
+                "show"
+            );
+
+        }
 
     }
 
 }
 
 
+if (searchInput) {
 
-// =======================================================
-// URL STATUS MESSAGES
-// =======================================================
-
-function checkURLMessage() {
-
-    const params =
-        new URLSearchParams(
-            window.location.search
-        );
-
-
-    const login =
-        params.get(
-            "login"
-        );
-
-
-    const logout =
-        params.get(
-            "logout"
-        );
-
-
-    if (
-        login === "success"
-    ) {
-
-        console.log(
-            "✨ Successfully logged into Discord."
-        );
-
-    }
-
-
-    if (
-        login === "cancelled"
-    ) {
-
-        console.log(
-            "⚠️ Discord login was cancelled."
-        );
-
-    }
-
-
-    if (
-        logout === "success"
-    ) {
-
-        console.log(
-            "👋 Successfully logged out."
-        );
-
-    }
+    searchInput.addEventListener(
+        "input",
+        updateCommands
+    );
 
 }
 
 
 
-// =======================================================
-// CLOSE SETTINGS WHEN CLICKING OUTSIDE
-// =======================================================
+/* =====================================================
+   COMMAND FILTERS
+===================================================== */
 
-document.addEventListener(
-    "click",
-    function(event) {
+const filterButtons =
+    document.querySelectorAll(
+        ".filter-button"
+    );
 
-        const panel =
-            document.getElementById(
-                "settingsPanel"
+
+filterButtons.forEach(
+    button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                filterButtons.forEach(
+                    item => {
+
+                        item.classList.remove(
+                            "active"
+                        );
+
+                    }
+                );
+
+
+                button.classList.add(
+                    "active"
+                );
+
+
+                currentFilter =
+                    button.dataset.filter
+                    || "all";
+
+
+                updateCommands();
+
+            }
+        );
+
+    }
+);
+
+
+
+/* =====================================================
+   FAQ
+===================================================== */
+
+const faqItems =
+    document.querySelectorAll(
+        ".faq-item"
+    );
+
+
+faqItems.forEach(
+    item => {
+
+        const question =
+            item.querySelector(
+                ".faq-question"
             );
 
 
-        const settings =
-            document.querySelector(
-                ".settings"
-            );
+        if (!question) {
+            return;
+        }
+
+
+        question.addEventListener(
+            "click",
+            () => {
+
+                const wasOpen =
+                    item.classList.contains(
+                        "open"
+                    );
+
+
+                faqItems.forEach(
+                    other => {
+
+                        other.classList.remove(
+                            "open"
+                        );
+
+                    }
+                );
+
+
+                if (!wasOpen) {
+
+                    item.classList.add(
+                        "open"
+                    );
+
+                }
+
+            }
+        );
+
+    }
+);
+
+
+
+/* =====================================================
+   BACK TO TOP
+===================================================== */
+
+const backToTop =
+    document.getElementById(
+        "backToTop"
+    );
+
+
+window.addEventListener(
+    "scroll",
+    () => {
+
+        if (!backToTop) {
+            return;
+        }
 
 
         if (
-            panel &&
-            settings &&
-            !panel.contains(event.target) &&
-            !settings.contains(event.target)
+            window.scrollY > 600
         ) {
 
-            panel.style.display =
-                "none";
+            backToTop.classList.add(
+                "show"
+            );
+
+        } else {
+
+            backToTop.classList.remove(
+                "show"
+            );
 
         }
 
@@ -1805,23 +3396,185 @@ document.addEventListener(
 );
 
 
+if (backToTop) {
 
-// =======================================================
-// START
-// =======================================================
+    backToTop.addEventListener(
+        "click",
+        () => {
 
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
 
-        loadSettings();
+        }
+    );
 
-        checkURLMessage();
+}
 
-        loadDashboard();
 
-    }
-);
+
+/* =====================================================
+   REVEAL ANIMATIONS
+===================================================== */
+
+const revealElements =
+    document.querySelectorAll(
+        ".feature-card, .command-card, .big-stat, .about-content, .about-card-wrapper"
+    );
+
+
+if (
+    "IntersectionObserver"
+    in window
+) {
+
+    const observer =
+        new IntersectionObserver(
+            entries => {
+
+                entries.forEach(
+                    entry => {
+
+                        if (
+                            entry.isIntersecting
+                        ) {
+
+                            entry.target.classList.add(
+                                "visible"
+                            );
+
+                            observer.unobserve(
+                                entry.target
+                            );
+
+                        }
+
+                    }
+                );
+
+            },
+            {
+                threshold: 0.1
+            }
+        );
+
+
+    revealElements.forEach(
+        element => {
+
+            observer.observe(
+                element
+            );
+
+        }
+    );
+
+} else {
+
+    revealElements.forEach(
+        element => {
+
+            element.classList.add(
+                "visible"
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   ACTIVE NAVIGATION
+===================================================== */
+
+const sections =
+    document.querySelectorAll(
+        "main section[id]"
+    );
+
+
+const navLinks =
+    document.querySelectorAll(
+        ".nav-link"
+    );
+
+
+if (
+    "IntersectionObserver"
+    in window
+) {
+
+    const navObserver =
+        new IntersectionObserver(
+            entries => {
+
+                entries.forEach(
+                    entry => {
+
+                        if (
+                            entry.isIntersecting
+                        ) {
+
+                            navLinks.forEach(
+                                link => {
+
+                                    link.classList.remove(
+                                        "active"
+                                    );
+
+
+                                    if (
+                                        link.getAttribute(
+                                            "href"
+                                        ) ===
+                                        "#" +
+                                        entry.target.id
+                                    ) {
+
+                                        link.classList.add(
+                                            "active"
+                                        );
+
+                                    }
+
+                                }
+                            );
+
+                        }
+
+                    }
+                );
+
+            },
+            {
+                rootMargin:
+                    "-35% 0px -55% 0px"
+            }
+        );
+
+
+    sections.forEach(
+        section => {
+
+            navObserver.observe(
+                section
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   INITIAL COMMAND COUNT
+===================================================== */
+
+updateCommands();
 
 
 </script>
