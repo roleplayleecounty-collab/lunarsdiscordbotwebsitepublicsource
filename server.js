@@ -1,5 +1,3 @@
-require("dotenv").config();
-
 const express = require("express");
 const session = require("express-session");
 const path = require("path");
@@ -8,443 +6,304 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
-
-// ==========================================
-// CONFIG
-// ==========================================
-
 const CLIENT_ID = process.env.DISCORD_CLIENT_ID;
-
 const CLIENT_SECRET = process.env.DISCORD_CLIENT_SECRET;
 
-const SESSION_SECRET = process.env.SESSION_SECRET;
-
-
-// Render backend URL
-const BACKEND_URL =
-    "https://lyrasupport.onrender.com";
-
-
-// Netlify frontend
-const WEBSITE_URL =
-    "https://lyrasupport.netlify.app";
-
-
 const REDIRECT_URI =
-    `${BACKEND_URL}/auth/discord/callback`;
+    process.env.DISCORD_REDIRECT_URI ||
+    "http://localhost:3000/callback";
+
+const BOT_CLIENT_ID = CLIENT_ID;
 
 
-// ==========================================
-// CHECK ENV
-// ==========================================
-
-if(!CLIENT_ID){
-    console.log("Missing Discord Client ID");
-    process.exit(1);
-}
-
-if(!CLIENT_SECRET){
-    console.log("Missing Discord Client Secret");
-    process.exit(1);
-}
-
-if(!SESSION_SECRET){
-    console.log("Missing Session Secret");
-    process.exit(1);
-}
-
-
-// ==========================================
-// EXPRESS
-// ==========================================
-
-app.use(express.json());
-
-app.use(express.urlencoded({
-    extended:true
-}));
-
-
-app.set(
-    "trust proxy",
-    1
-);
-
-
-// ==========================================
-// SESSION
-// ==========================================
+/* =========================================================
+   SESSION
+   ========================================================= */
 
 app.use(
     session({
+        secret:
+            process.env.SESSION_SECRET ||
+            "change-this-secret",
 
-        secret: SESSION_SECRET,
+        resave: false,
 
-        resave:false,
+        saveUninitialized: false,
 
-        saveUninitialized:false,
-
-        cookie:{
-
-            secure:true,
-
-            httpOnly:true,
-
-            sameSite:"lax",
-
-            maxAge:
-            1000 *
-            60 *
-            60 *
-            24 *
-            7
+        cookie: {
+            maxAge: 1000 * 60 * 60 * 24
         }
-
     })
 );
 
 
-// ==========================================
-// DISCORD LOGIN
-// ==========================================
+/* =========================================================
+   STATIC WEBSITE
+   ========================================================= */
 
-app.get(
-"/auth/discord",
-(req,res)=>{
-
-
-const params =
-new URLSearchParams({
-
-client_id:CLIENT_ID,
-
-redirect_uri:REDIRECT_URI,
-
-response_type:"code",
-
-scope:"identify guilds"
-
-});
-
-
-const url =
-`https://discord.com/oauth2/authorize?${params}`;
-
-
-res.redirect(url);
-
-
-});
-
-
-// ==========================================
-// CALLBACK
-// ==========================================
-
-app.get(
-"/auth/discord/callback",
-
-async(req,res)=>{
-
-
-const code=req.query.code;
-
-
-if(!code){
-
-return res.send(
-"Missing Discord code"
-);
-
-}
-
-
-
-try{
-
-
-// Get token
-
-const token =
-await fetch(
-"https://discord.com/api/oauth2/token",
-{
-
-method:"POST",
-
-headers:{
-"Content-Type":
-"application/x-www-form-urlencoded"
-},
-
-body:
-new URLSearchParams({
-
-client_id:CLIENT_ID,
-
-client_secret:CLIENT_SECRET,
-
-grant_type:
-"authorization_code",
-
-code:code,
-
-redirect_uri:
-REDIRECT_URI
-
-})
-
-}
+app.use(
+    express.static(
+        path.join(__dirname)
+    )
 );
 
 
+/* =========================================================
+   DISCORD OAUTH LOGIN
+   ========================================================= */
 
-const tokenData =
-await token.json();
+app.get("/login", (req, res) => {
 
+    const params = new URLSearchParams({
+        client_id: CLIENT_ID,
 
+        redirect_uri: REDIRECT_URI,
 
-// Get user
+        response_type: "code",
 
-const userResponse =
-await fetch(
-"https://discord.com/api/users/@me",
-{
+        scope: "identify guilds"
+    });
 
-headers:{
-
-Authorization:
-`Bearer ${tokenData.access_token}`
-
-}
-
-}
-);
+    res.redirect(
+        `https://discord.com/oauth2/authorize?${params}`
+    );
+});
 
 
-const user =
-await userResponse.json();
+/* =========================================================
+   CALLBACK
+   ========================================================= */
+
+app.get("/callback", async (req, res) => {
+
+    const code = req.query.code;
+
+    if (!code) {
+        return res.redirect("/");
+    }
+
+    try {
+
+        const tokenResponse =
+            await fetch(
+                "https://discord.com/api/oauth2/token",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/x-www-form-urlencoded"
+                    },
+
+                    body:
+                        new URLSearchParams({
+                            client_id: CLIENT_ID,
+
+                            client_secret:
+                                CLIENT_SECRET,
+
+                            grant_type:
+                                "authorization_code",
+
+                            code,
+
+                            redirect_uri:
+                                REDIRECT_URI
+                        })
+                }
+            );
 
 
-
-// Get guilds
-
-const guildResponse =
-await fetch(
-"https://discord.com/api/users/@me/guilds",
-{
-
-headers:{
-
-Authorization:
-`Bearer ${tokenData.access_token}`
-
-}
-
-}
-);
+        const token =
+            await tokenResponse.json();
 
 
-const guilds =
-await guildResponse.json();
+        if (!token.access_token) {
+
+            console.error(token);
+
+            return res
+                .status(500)
+                .send("Discord login failed.");
+
+        }
 
 
-
-// Save session
-
-req.session.user = user;
-
-req.session.guilds = guilds;
+        const headers = {
+            Authorization:
+                `Bearer ${token.access_token}`
+        };
 
 
+        /* USER */
 
-console.log(
-"Logged in:",
-user.username
-);
-
-
-// Back to Netlify
-
-res.redirect(
-WEBSITE_URL
-);
+        const userResponse =
+            await fetch(
+                "https://discord.com/api/users/@me",
+                {
+                    headers
+                }
+            );
 
 
-
-}catch(err){
-
-console.log(err);
-
-res.send(
-"Discord login failed"
-);
+        const user =
+            await userResponse.json();
 
 
-}
+        /* SERVERS */
 
+        const guildResponse =
+            await fetch(
+                "https://discord.com/api/users/@me/guilds",
+                {
+                    headers
+                }
+            );
+
+
+        const guilds =
+            await guildResponse.json();
+
+
+        req.session.user = user;
+
+        req.session.guilds = guilds;
+
+
+        res.redirect("/");
+
+    } catch (error) {
+
+        console.error(error);
+
+        res
+            .status(500)
+            .send("Something went wrong while logging in.");
+
+    }
 
 });
 
 
-// ==========================================
-// API USER
-// ==========================================
+/* =========================================================
+   CURRENT USER
+   ========================================================= */
 
-app.get(
-"/api/me",
+app.get("/api/user", (req, res) => {
 
-(req,res)=>{
+    if (!req.session.user) {
 
+        return res.json({
+            loggedIn: false
+        });
 
-if(!req.session.user){
-
-return res.json({
-
-loggedIn:false
-
-});
-
-}
+    }
 
 
-res.json({
+    res.json({
 
-loggedIn:true,
+        loggedIn: true,
 
-user:req.session.user
+        user: req.session.user
+
+    });
 
 });
 
 
-});
+/* =========================================================
+   USER SERVERS
+   ========================================================= */
+
+app.get("/api/guilds", (req, res) => {
+
+    if (!req.session.guilds) {
+
+        return res.status(401).json({
+            error: "Not logged in"
+        });
+
+    }
 
 
+    const guilds =
+        req.session.guilds.map(guild => {
 
-// ==========================================
-// API GUILDS
-// ==========================================
+            const permissions =
+                BigInt(guild.permissions || "0");
 
-app.get(
-"/api/guilds",
+            const ADMINISTRATOR =
+                0x8n;
 
-(req,res)=>{
-
-
-res.json({
-
-guilds:
-req.session.guilds || []
-
-});
+            const MANAGE_GUILD =
+                0x20n;
 
 
-});
+            const isAdmin =
+                (permissions &
+                    ADMINISTRATOR) !== 0n;
 
 
-// ==========================================
-// STATUS
-// ==========================================
-
-app.get(
-"/api/status",
-
-(req,res)=>{
+            const canManage =
+                (permissions &
+                    MANAGE_GUILD) !== 0n;
 
 
-res.json({
+            return {
 
-online:true,
+                id: guild.id,
 
-bot:"Lyra",
+                name: guild.name,
 
-website:"online"
+                icon: guild.icon,
 
-});
+                owner: guild.owner,
+
+                administrator: isAdmin,
+
+                manageGuild: canManage,
+
+                canInvite:
+                    isAdmin ||
+                    canManage ||
+                    guild.owner
+
+            };
+
+        });
 
 
-});
-
-
-
-// ==========================================
-// BOT STATS
-// ==========================================
-
-app.get(
-"/api/bot/stats",
-
-(req,res)=>{
-
-
-res.json({
-
-online:true,
-
-bot:"Lyra",
-
-guilds:
-process.env.BOT_GUILD_COUNT || 0,
-
-members:
-process.env.BOT_MEMBER_COUNT || 0
+    res.json(guilds);
 
 });
 
 
-});
+/* =========================================================
+   LOGOUT
+   ========================================================= */
 
+app.get("/logout", (req, res) => {
 
+    req.session.destroy(() => {
 
-// ==========================================
-// LOGOUT
-// ==========================================
+        res.redirect("/");
 
-app.get(
-"/auth/logout",
-
-(req,res)=>{
-
-
-req.session.destroy(()=>{
-
-
-res.redirect(
-WEBSITE_URL
-);
-
+    });
 
 });
 
 
-});
-
-
-
-// ==========================================
-// START
-// ==========================================
+/* =========================================================
+   START
+   ========================================================= */
 
 app.listen(
-PORT,
-"0.0.0.0",
-()=>{
+    PORT,
+    () => {
 
+        console.log(
+            `🌙 Lyra website running on port ${PORT}`
+        );
 
-console.log(`
-🌙 LYRA WEBSITE ONLINE
-
-Website:
-${WEBSITE_URL}
-
-Backend:
-${BACKEND_URL}
-
-OAuth:
-${REDIRECT_URI}
-
-Port:
-${PORT}
-`);
-
-});
+    }
+);
