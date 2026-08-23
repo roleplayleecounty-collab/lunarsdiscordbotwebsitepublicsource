@@ -33,7 +33,7 @@ const CLIENT_SECRET =
 
 const REDIRECT_URI =
     process.env.DISCORD_REDIRECT_URI ||
-    `http://localhost:${PORT}/auth/discord/callback`;
+    "https://lyrasupport.onrender.com/auth/discord/callback";
 
 const SESSION_SECRET =
     process.env.SESSION_SECRET;
