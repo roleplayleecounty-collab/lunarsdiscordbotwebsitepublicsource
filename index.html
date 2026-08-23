@@ -1,743 +1,991 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Lyra — Discord Bot</title>
+    <title>Lyra | Discord Bot</title>
+    <meta name="description" content="Lyra is a powerful Discord bot built for communities, support teams, and growing servers.">
+    <meta name="theme-color" content="#8b5cf6">
 
-<meta name="description" content="Lyra is an advanced Discord bot with tickets, economy, moderation, logging and more.">
-<meta name="theme-color" content="#8b5cf6">
-// use //
-<style>
+    <link rel="stylesheet" href="./style.css">
 
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    font-family:Inter,Arial,sans-serif;
-    background:
-    radial-gradient(circle at top,#8b5cf633,transparent 35%),
-    #050505;
-    color:white;
-}
-
-
-a{
-    text-decoration:none;
-    color:white;
-}
-
-
-.nav{
-    height:75px;
-    position:sticky;
-    top:0;
-    z-index:100;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:0 6%;
-    background:#080808cc;
-    backdrop-filter:blur(15px);
-    border-bottom:1px solid #ffffff12;
-}
-
-
-.brand{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    font-size:22px;
-    font-weight:900;
-}
-
-
-.logo{
-    width:42px;
-    height:42px;
-    border-radius:14px;
-    display:grid;
-    place-items:center;
-    background:linear-gradient(135deg,#a855f7,#6d28d9);
-    box-shadow:0 0 30px #8b5cf688;
-}
-
-
-.links{
-    display:flex;
-    gap:25px;
-}
-
-
-.links a{
-    color:#aaa;
-    font-size:14px;
-}
-
-
-.links a:hover{
-    color:white;
-}
-
-
-.login{
-    background:#5865f2;
-    border:0;
-    padding:12px 18px;
-    border-radius:12px;
-    font-weight:800;
-    cursor:pointer;
-    color:white;
-}
-
-
-
-.hero{
-    min-height:650px;
-    display:grid;
-    place-items:center;
-    text-align:center;
-    width:90%;
-    max-width:1100px;
-    margin:auto;
-}
-
-
-.badge{
-    display:inline-block;
-    padding:8px 15px;
-    border-radius:999px;
-    background:#22c55e22;
-    color:#86efac;
-    border:1px solid #22c55e44;
-    margin-bottom:25px;
-}
-
-
-h1{
-    font-size:90px;
-    line-height:.95;
-}
-
-
-.gradient{
-    background:linear-gradient(90deg,#fff,#a855f7,#6d28d9);
-    background-clip:text;
-    color:transparent;
-}
-
-
-.hero p{
-    margin-top:25px;
-    color:#aaa;
-    font-size:20px;
-}
-
-
-.buttons{
-    margin-top:35px;
-    display:flex;
-    justify-content:center;
-    gap:15px;
-}
-
-
-.btn{
-    padding:15px 25px;
-    border-radius:14px;
-    font-weight:900;
-}
-
-
-.primary{
-    background:linear-gradient(135deg,#a855f7,#6d28d9);
-}
-
-
-.secondary{
-    background:#151515;
-    border:1px solid #ffffff15;
-}
-
-
-
-.stats{
-
-width:90%;
-max-width:1000px;
-margin:-40px auto 100px;
-
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:15px;
-
-}
-
-
-.card{
-
-background:#101010;
-border:1px solid #ffffff12;
-padding:30px;
-border-radius:20px;
-text-align:center;
-
-}
-
-
-.card h2{
-font-size:35px;
-}
-
-
-.card p{
-color:#888;
-}
-
-
-
-
-
-section{
-
-width:90%;
-max-width:1100px;
-margin:100px auto;
-
-}
-
-
-
-.title{
-
-margin-bottom:35px;
-
-}
-
-
-.title span{
-
-color:#a855f7;
-font-weight:900;
-
-}
-
-
-
-.title h2{
-
-font-size:45px;
-
-}
-
-
-
-.title p{
-
-color:#999;
-margin-top:10px;
-
-}
-
-
-
-.features{
-
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:20px;
-
-}
-
-
-
-.feature{
-
-background:#111;
-padding:30px;
-border-radius:20px;
-border:1px solid #ffffff12;
-
-}
-
-
-
-.feature:hover{
-
-transform:translateY(-5px);
-border-color:#a855f7;
-
-}
-
-
-
-.icon{
-
-font-size:30px;
-margin-bottom:15px;
-
-}
-
-
-
-.feature p{
-
-color:#999;
-margin-top:10px;
-
-}
-
-
-
-
-.dashboard{
-
-background:#111;
-border:1px solid #ffffff12;
-border-radius:25px;
-padding:30px;
-
-}
-
-
-
-.server{
-
-background:#181818;
-padding:15px;
-border-radius:12px;
-margin-top:10px;
-display:flex;
-align-items:center;
-gap:15px;
-
-}
-
-
-
-.avatar{
-
-width:45px;
-height:45px;
-border-radius:50%;
-background:#a855f7;
-display:grid;
-place-items:center;
-
-}
-
-
-
-footer{
-
-border-top:1px solid #ffffff12;
-padding:30px;
-text-align:center;
-color:#777;
-
-}
-
-
-
-@media(max-width:800px){
-
-h1{
-font-size:55px;
-}
-
-.features,
-.stats{
-
-grid-template-columns:1fr;
-
-}
-
-.links{
-display:none;
-}
-
-}
-
-
-
-</style>
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
-
 
 <body>
 
+    <div class="background">
+        <div class="glow glow-one"></div>
+        <div class="glow glow-two"></div>
+        <div class="glow glow-three"></div>
+    </div>
+
+    <header class="navbar">
+        <div class="nav-container">
 
-<header class="nav">
+            <a href="#" class="brand">
+                <div class="brand-icon">L</div>
 
-<div class="brand">
-<div class="logo">🌙</div>
-Lyra
-</div>
+                <div class="brand-text">
+                    <span class="brand-name">Lyra</span>
+                    <span class="brand-subtitle">Discord Bot</span>
+                </div>
+            </a>
 
+            <nav class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#commands">Commands</a>
+                <a href="#status">Status</a>
+                <a href="#about">About</a>
+            </nav>
 
-<div class="links">
+            <div class="nav-actions">
+                <a
+                    href="https://discord.com/oauth2/authorize?client_id=1535562865610850314&permissions=8&integration_type=0&scope=bot+applications.commands"
+                    class="nav-invite"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Add to Discord
+                </a>
+            </div>
 
-<a href="#features">Features</a>
-<a href="#dashboard">Dashboard</a>
-<a href="#servers">Servers</a>
+        </div>
+    </header>
 
-<button class="login" onclick="login()">
-Discord Login
-</button>
 
-</div>
+    <main>
 
+        <section class="hero">
 
-</header>
+            <div class="hero-content">
 
+                <div class="status-pill">
+                    <span class="status-dot"></span>
+                    Online and ready
+                </div>
 
+                <h1>
+                    A better bot
+                    <span>for your server.</span>
+                </h1>
 
-<section class="hero">
+                <p class="hero-description">
+                    Lyra brings moderation, tickets, economy, server tools,
+                    logging and more together in one Discord bot built for
+                    communities that want things to run smoothly.
+                </p>
 
+                <div class="hero-buttons">
 
-<div>
+                    <a
+                        href="https://discord.com/oauth2/authorize?client_id=1535562865610850314&permissions=8&integration_type=0&scope=bot+applications.commands"
+                        class="button button-primary"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Add Lyra
+                    </a>
 
-<div class="badge">
-🟢 Lyra is Online
-</div>
+                    <a href="#commands" class="button button-secondary">
+                        View commands
+                    </a>
 
+                </div>
 
-<h1>
-Your Discord.<br>
-<span class="gradient">
-Your Community.
-</span>
-</h1>
+                <div class="hero-note">
+                    Free to add and built for Discord communities.
+                </div>
 
+            </div>
 
-<p>
-Lyra is a powerful Discord bot built with advanced tickets,
-economy, moderation, logging, badges and server protection.
-</p>
 
+            <div class="hero-card-wrapper">
 
-<div class="buttons">
+                <div class="hero-card">
 
-<a class="btn primary" href="/invite">
-Invite Lyra
-</a>
+                    <div class="bot-card-top">
 
+                        <div class="bot-avatar">
+                            L
+                            <span class="online-indicator"></span>
+                        </div>
 
-<button class="btn secondary" onclick="login()">
-Login With Discord
-</button>
+                        <div class="bot-card-info">
+                            <h3>Lyra</h3>
+                            <p>Discord Application</p>
+                        </div>
 
+                        <div class="bot-badge">
+                            BOT
+                        </div>
 
-</div>
+                    </div>
 
+                    <div class="bot-card-divider"></div>
 
-</div>
+                    <div class="bot-stats">
 
+                        <div class="bot-stat">
+                            <strong>17</strong>
+                            <span>Servers</span>
+                        </div>
 
-</section>
+                        <div class="bot-stat">
+                            <strong>25</strong>
+                            <span>Commands</span>
+                        </div>
 
+                        <div class="bot-stat">
+                            <strong>24/7</strong>
+                            <span>Availability</span>
+                        </div>
 
+                    </div>
 
+                    <div class="bot-card-footer">
+                        <span class="green-dot"></span>
+                        All systems operational
 
-<div class="stats">
+                        <span class="footer-time">
+                            Online
+                        </span>
+                    </div>
 
+                </div>
 
-<div class="card">
-<h2 id="guilds">0</h2>
-<p>Servers</p>
-</div>
+            </div>
 
+        </section>
 
-<div class="card">
-<h2 id="members">0</h2>
-<p>Users</p>
-</div>
 
+        <section class="stats-section">
 
-<div class="card">
-<h2 id="status">
-Online
-</h2>
-<p>Status</p>
-</div>
+            <div class="stats-grid">
 
+                <div class="stat-card">
 
-</div>
+                    <div class="stat-icon">
+                        25
+                    </div>
 
+                    <div>
+                        <strong>25</strong>
+                        <span>Available commands</span>
+                    </div>
 
+                </div>
 
 
+                <div class="stat-card">
 
-<section id="features">
+                    <div class="stat-icon">
+                        17
+                    </div>
 
+                    <div>
+                        <strong>17</strong>
+                        <span>Servers using Lyra</span>
+                    </div>
 
-<div class="title">
+                </div>
 
-<span>FEATURES</span>
 
-<h2>
-Everything your server needs
-</h2>
+                <div class="stat-card">
 
-<p>
-Built for communities that want a powerful all-in-one Discord bot.
-</p>
+                    <div class="stat-icon">
+                        5
+                    </div>
 
-</div>
+                    <div>
+                        <strong>5</strong>
+                        <span>Active event systems</span>
+                    </div>
 
+                </div>
 
 
+                <div class="stat-card">
 
-<div class="features">
+                    <div class="stat-icon">
+                        24/7
+                    </div>
 
+                    <div>
+                        <strong>24/7</strong>
+                        <span>Built to stay online</span>
+                    </div>
 
-<div class="feature">
-<div class="icon">🎫</div>
-<h3>Advanced Tickets</h3>
-<p>
-Custom ticket panels, claiming, closing, transcripts and staff tools.
-</p>
-</div>
+                </div>
 
+            </div>
 
+        </section>
 
-<div class="feature">
-<div class="icon">💰</div>
-<h3>Economy</h3>
-<p>
-Coins, daily rewards, work commands, payments and leaderboards.
-</p>
-</div>
 
+        <section class="section" id="features">
 
+            <div class="section-heading">
 
-<div class="feature">
-<div class="icon">🛡️</div>
-<h3>Moderation</h3>
-<p>
-Powerful moderation commands to keep your server safe.
-</p>
-</div>
+                <div class="section-label">
+                    FEATURES
+                </div>
 
+                <h2>
+                    Everything your server needs.
+                </h2>
 
+                <p>
+                    Lyra combines useful server tools into a single,
+                    straightforward bot without making your community
+                    depend on a dozen different bots.
+                </p>
 
-<div class="feature">
-<div class="icon">📜</div>
-<h3>Logging</h3>
-<p>
-Track important server events automatically.
-</p>
-</div>
+            </div>
 
 
+            <div class="feature-grid">
 
-<div class="feature">
-<div class="icon">🏆</div>
-<h3>Badges</h3>
-<p>
-Custom Lyra badges like Developer, Staff and Founder.
-</p>
-</div>
+                <article class="feature-card feature-large">
 
+                    <div class="feature-icon purple">
+                        T
+                    </div>
 
+                    <h3>
+                        Ticket system
+                    </h3>
 
-<div class="feature">
-<div class="icon">🤖</div>
-<h3>Protection</h3>
-<p>
-Smart anti-spam and server protection systems.
-</p>
-</div>
+                    <p>
+                        Give your members an easy way to contact your staff.
+                        Lyra provides ticket creation, claiming, closing,
+                        user management and ticket renaming.
+                    </p>
 
+                    <div class="feature-tags">
+                        <span>Ticket panels</span>
+                        <span>Claiming</span>
+                        <span>User management</span>
+                        <span>Closing</span>
+                    </div>
 
+                </article>
 
-</div>
 
+                <article class="feature-card">
 
-</section>
+                    <div class="feature-icon green">
+                        E
+                    </div>
 
+                    <h3>
+                        Economy
+                    </h3>
 
+                    <p>
+                        Give your community its own economy with balances,
+                        daily rewards, work, payments and leaderboards.
+                    </p>
 
+                    <div class="feature-tags">
+                        <span>Balance</span>
+                        <span>Daily</span>
+                        <span>Work</span>
+                    </div>
 
+                </article>
 
-<section id="dashboard">
 
-<div class="title">
+                <article class="feature-card">
 
-<span>DASHBOARD</span>
+                    <div class="feature-icon blue">
+                        S
+                    </div>
 
-<h2>
-Your Lyra Control Center
-</h2>
+                    <h3>
+                        Server tools
+                    </h3>
 
-</div>
+                    <p>
+                        Quickly inspect servers and users with information
+                        commands designed to be simple and useful.
+                    </p>
 
+                    <div class="feature-tags">
+                        <span>Server info</span>
+                        <span>Whois</span>
+                        <span>Bot info</span>
+                    </div>
 
-<div class="dashboard">
+                </article>
 
-<h3>
-🌙 Lyra Dashboard
-</h3>
 
-<p style="color:#888;margin-top:10px;">
-Login with Discord to manage your servers.
-</p>
+                <article class="feature-card">
 
+                    <div class="feature-icon orange">
+                        L
+                    </div>
 
-</div>
+                    <h3>
+                        Logging
+                    </h3>
 
+                    <p>
+                        Set up server logging so important activity can be
+                        tracked without having to manually watch every channel.
+                    </p>
 
-</section>
+                    <div class="feature-tags">
+                        <span>Log setup</span>
+                        <span>Events</span>
+                    </div>
 
+                </article>
 
 
+                <article class="feature-card">
 
-<section id="servers">
+                    <div class="feature-icon pink">
+                        B
+                    </div>
 
+                    <h3>
+                        Badges
+                    </h3>
 
-<div class="title">
+                    <p>
+                        Give members badges and let them show off achievements
+                        and roles within your community.
+                    </p>
 
-<span>SERVERS</span>
+                    <div class="feature-tags">
+                        <span>Badges</span>
+                        <span>Give badge</span>
+                        <span>Remove badge</span>
+                    </div>
 
-<h2>
-Your Discord Servers
-</h2>
+                </article>
 
-</div>
 
+                <article class="feature-card">
 
-<div class="dashboard" id="serverList">
+                    <div class="feature-icon cyan">
+                        V
+                    </div>
 
-Login to view your servers.....
+                    <h3>
+                        Voice tools
+                    </h3>
 
-</div>
+                    <p>
+                        Lyra includes voice channel functionality and sound
+                        playback for servers that want a little more control
+                        over their voice experience.
+                    </p>
 
+                    <div class="feature-tags">
+                        <span>Join VC</span>
+                        <span>Play sound</span>
+                    </div>
 
-</section>
+                </article>
 
+            </div>
 
+        </section>
 
 
+        <section class="section commands-section" id="commands">
 
+            <div class="section-heading">
 
-<footer>
+                <div class="section-label">
+                    COMMANDS
+                </div>
 
-© <span id="year"></span> Lyra Discord Bot
+                <h2>
+                    Built around useful commands.
+                </h2>
 
-</footer>
+                <p>
+                    Lyra currently has 25 registered commands across
+                    developer, economy, general, setup and ticket systems.
+                </p>
 
+            </div>
 
 
+            <div class="command-container">
 
-<script>
 
+                <div class="command-category">
 
-function login(){
+                    <div class="category-header">
 
-window.location.href="/auth/discord";
+                        <div class="category-icon">
+                            D
+                        </div>
 
-}
+                        <div>
+                            <h3>Developer</h3>
+                            <p>Bot management and utility</p>
+                        </div>
 
+                    </div>
 
+                    <div class="command-list">
 
-async function stats(){
+                        <div class="command-item">
+                            <code>/givebadge</code>
+                            <span>Give a badge to a user</span>
+                        </div>
 
-try{
+                        <div class="command-item">
+                            <code>/removebadge</code>
+                            <span>Remove a badge from a user</span>
+                        </div>
 
-let r=await fetch("/api/bot/stats");
+                        <div class="command-item">
+                            <code>/invite</code>
+                            <span>Get the bot invite</span>
+                        </div>
 
-let d=await r.json();
+                        <div class="command-item">
+                            <code>/joinvc</code>
+                            <span>Join a voice channel</span>
+                        </div>
 
+                        <div class="command-item">
+                            <code>/playsound</code>
+                            <span>Play a sound in voice</span>
+                        </div>
 
-guilds.innerText=d.guilds;
-members.innerText=d.members;
-status.innerText=d.online?"Online":"Offline";
+                        <div class="command-item">
+                            <code>/servers</code>
+                            <span>View bot server information</span>
+                        </div>
 
+                    </div>
 
-}catch{}
+                </div>
 
-}
 
+                <div class="command-category">
 
+                    <div class="category-header">
 
+                        <div class="category-icon green-icon">
+                            $
+                        </div>
 
-async function servers(){
+                        <div>
+                            <h3>Economy</h3>
+                            <p>Community economy system</p>
+                        </div>
 
-try{
+                    </div>
 
+                    <div class="command-list">
 
-let r=await fetch("/api/guilds");
+                        <div class="command-item">
+                            <code>/balance</code>
+                            <span>Check your current balance</span>
+                        </div>
 
+                        <div class="command-item">
+                            <code>/daily</code>
+                            <span>Collect your daily reward</span>
+                        </div>
 
-if(!r.ok)return;
+                        <div class="command-item">
+                            <code>/leaderboard</code>
+                            <span>View the economy leaderboard</span>
+                        </div>
 
+                        <div class="command-item">
+                            <code>/pay</code>
+                            <span>Send money to another user</span>
+                        </div>
 
-let d=await r.json();
+                        <div class="command-item">
+                            <code>/work</code>
+                            <span>Work and earn money</span>
+                        </div>
 
+                    </div>
 
-serverList.innerHTML="";
+                </div>
 
 
-d.guilds.forEach(g=>{
+                <div class="command-category">
 
+                    <div class="category-header">
 
-serverList.innerHTML+=`
+                        <div class="category-icon blue-icon">
+                            G
+                        </div>
 
-<div class="server">
+                        <div>
+                            <h3>General</h3>
+                            <p>Everyday server commands</p>
+                        </div>
 
-<div class="avatar">
-${g.name[0]}
-</div>
+                    </div>
 
+                    <div class="command-list">
 
-<div>
+                        <div class="command-item">
+                            <code>/badges</code>
+                            <span>View available badges</span>
+                        </div>
 
-<b>${g.name}</b>
+                        <div class="command-item">
+                            <code>/botinfo</code>
+                            <span>View information about Lyra</span>
+                        </div>
 
-<p style="color:#777">
-${g.owner?"Owner":"Member"}
-</p>
+                        <div class="command-item">
+                            <code>/help</code>
+                            <span>View available commands</span>
+                        </div>
 
-</div>
+                        <div class="command-item">
+                            <code>/ping</code>
+                            <span>Check bot response time</span>
+                        </div>
 
-</div>
+                        <div class="command-item">
+                            <code>/serverinfo</code>
+                            <span>View server information</span>
+                        </div>
 
-`;
+                        <div class="command-item">
+                            <code>/whois</code>
+                            <span>View information about a user</span>
+                        </div>
 
+                    </div>
 
-});
+                </div>
 
 
-}catch{}
+                <div class="command-category">
 
-}
+                    <div class="category-header">
 
+                        <div class="category-icon orange-icon">
+                            S
+                        </div>
 
+                        <div>
+                            <h3>Setup</h3>
+                            <p>Configure Lyra for your server</p>
+                        </div>
 
-document.getElementById("year").innerText=
-new Date().getFullYear();
+                    </div>
 
+                    <div class="command-list">
 
-stats();
+                        <div class="command-item">
+                            <code>/logsetup</code>
+                            <span>Configure server logging</span>
+                        </div>
 
-servers();
+                        <div class="command-item">
+                            <code>/staffsetup</code>
+                            <span>Configure staff settings</span>
+                        </div>
 
+                    </div>
 
-setInterval(stats,30000);
+                </div>
 
 
-</script>
+                <div class="command-category">
 
+                    <div class="category-header">
 
+                        <div class="category-icon pink-icon">
+                            T
+                        </div>
+
+                        <div>
+                            <h3>Tickets</h3>
+                            <p>Support ticket management</p>
+                        </div>
+
+                    </div>
+
+                    <div class="command-list">
+
+                        <div class="command-item">
+                            <code>/adduser</code>
+                            <span>Add a user to a ticket</span>
+                        </div>
+
+                        <div class="command-item">
+                            <code>/claim</code>
+                            <span>Claim a support ticket</span>
+                        </div>
+
+                        <div class="command-item">
+                            <code>/close</code>
+                            <span>Close a support ticket</span>
+                        </div>
+
+                        <div class="command-item">
+                            <code>/removeuser</code>
+                            <span>Remove a user from a ticket</span>
+                        </div>
+
+                        <div class="command-item">
+                            <code>/rename</code>
+                            <span>Rename a ticket channel</span>
+                        </div>
+
+                        <div class="command-item">
+                            <code>/ticketsystemmake</code>
+                            <span>Create a ticket system</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="section" id="status">
+
+            <div class="status-panel">
+
+                <div class="status-panel-header">
+
+                    <div>
+                        <div class="section-label">
+                            SYSTEM STATUS
+                        </div>
+
+                        <h2>
+                            Everything is running.
+                        </h2>
+                    </div>
+
+                    <div class="big-status">
+                        <span class="green-dot"></span>
+                        Operational
+                    </div>
+
+                </div>
+
+
+                <div class="status-services">
+
+                    <div class="service">
+
+                        <div class="service-name">
+                            <span class="service-dot"></span>
+                            Discord connection
+                        </div>
+
+                        <strong>Operational</strong>
+
+                    </div>
+
+
+                    <div class="service">
+
+                        <div class="service-name">
+                            <span class="service-dot"></span>
+                            Commands
+                        </div>
+
+                        <strong>Operational</strong>
+
+                    </div>
+
+
+                    <div class="service">
+
+                        <div class="service-name">
+                            <span class="service-dot"></span>
+                            Database
+                        </div>
+
+                        <strong>Operational</strong>
+
+                    </div>
+
+
+                    <div class="service">
+
+                        <div class="service-name">
+                            <span class="service-dot"></span>
+                            Website
+                        </div>
+
+                        <strong>Operational</strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="section" id="about">
+
+            <div class="section-heading">
+
+                <div class="section-label">
+                    GET STARTED
+                </div>
+
+                <h2>
+                    Get Lyra running in your server.
+                </h2>
+
+                <p>
+                    Adding Lyra takes less than a minute. Choose your server,
+                    review the permissions and finish the Discord authorization.
+                </p>
+
+            </div>
+
+
+            <div class="steps">
+
+                <div class="step">
+
+                    <span class="step-number">
+                        01
+                    </span>
+
+                    <h3>
+                        Add Lyra
+                    </h3>
+
+                    <p>
+                        Use the Add to Discord button and select the server
+                        where you want Lyra installed.
+                    </p>
+
+                </div>
+
+
+                <div class="step">
+
+                    <span class="step-number">
+                        02
+                    </span>
+
+                    <h3>
+                        Configure your server
+                    </h3>
+
+                    <p>
+                        Set up tickets, logging and staff options using
+                        Lyra's setup commands.
+                    </p>
+
+                </div>
+
+
+                <div class="step">
+
+                    <span class="step-number">
+                        03
+                    </span>
+
+                    <h3>
+                        Start using Lyra
+                    </h3>
+
+                    <p>
+                        Your members can immediately start using the available
+                        commands and support systems.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="cta-section">
+
+            <div class="cta-glow"></div>
+
+            <div class="cta-content">
+
+                <div class="cta-icon">
+                    L
+                </div>
+
+                <h2>
+                    Ready to add Lyra?
+                </h2>
+
+                <p>
+                    Give your Discord server a complete set of useful tools
+                    without filling it with unnecessary bots.
+                </p>
+
+                <div class="hero-buttons">
+
+                    <a
+                        href="https://discord.com/oauth2/authorize?client_id=1535562865610850314&permissions=8&integration_type=0&scope=bot+applications.commands"
+                        class="button button-primary"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Add Lyra to Discord
+                    </a>
+
+                    <a href="#commands" class="button button-secondary">
+                        Browse commands
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer class="footer">
+
+        <div class="footer-container">
+
+            <div class="footer-brand">
+
+                <a href="#" class="brand">
+
+                    <div class="brand-icon">
+                        L
+                    </div>
+
+                    <div class="brand-text">
+                        <span class="brand-name">Lyra</span>
+                        <span class="brand-subtitle">Discord Bot</span>
+                    </div>
+
+                </a>
+
+                <p>
+                    A Discord bot focused on useful community tools,
+                    support systems and simple server management.
+                </p>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <div class="footer-column">
+
+                    <h4>Navigation</h4>
+
+                    <a href="#features">Features</a>
+                    <a href="#commands">Commands</a>
+                    <a href="#status">Status</a>
+                    <a href="#about">About</a>
+
+                </div>
+
+
+                <div class="footer-column">
+
+                    <h4>Lyra</h4>
+
+                    <a href="#features">Features</a>
+                    <a href="#commands">Command list</a>
+                    <a href="#status">System status</a>
+
+                </div>
+
+
+                <div class="footer-column">
+
+                    <h4>Discord</h4>
+
+                    <a
+                        href="https://discord.com/oauth2/authorize?client_id=1535562865610850314&permissions=8&integration_type=0&scope=bot+applications.commands"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Add Lyra
+                    </a>
+
+                    <a href="#commands">
+                        Commands
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <span>
+                © 2026 Lyra. All rights reserved.
+            </span>
+
+            <span>
+                Built for Discord communities.
+            </span>
+
+        </div>
+
+    </footer>
+
+
+    <script>
+        const navbar = document.querySelector(".navbar");
+
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add("navbar-scrolled");
+            } else {
+                navbar.classList.remove("navbar-scrolled");
+            }
+        });
+
+        const animatedElements = document.querySelectorAll(
+            ".feature-card, .command-category, .step, .stat-card"
+        );
+
+        const observer = new IntersectionObserver(
+            entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            },
+            {
+                threshold: 0.12
+            }
+        );
+
+        animatedElements.forEach(element => {
+            observer.observe(element);
+        });
+    </script>
 
 </body>
 </html>
